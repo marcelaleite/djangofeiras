@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'feiras.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-        #'NAME': 'djangofeiras',
-        #'ENGINE': 'django.db.backends.mysql',
-        #'USER': 'feira',
-        #'PASSWORD': '1a2b3c4d5e.'
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        'NAME': 'djangofeiras',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'feira',
+        'PASSWORD': '1a2b3c4d5e.'
     }
 }
 
