@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'certificados',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,9 @@ DATABASES = {
         'NAME': 'djangofeiras',
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'feira',
-        'PASSWORD': '1a2b3c4d5e.'
+        'PASSWORD': '1a2b3c4d5e.',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
