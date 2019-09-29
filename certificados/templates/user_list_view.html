@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>{{ 'Certificados Disponíveis'|upper }}</h1>
+<ul>
+	{% for item in object %}
+		<li>{{ item.ptext }} - <a href="{{ item.get_absolute_url }}">Visualizar</a> | <a href="{{ item.id }}/download/">Download</a></li>
+	{% endfor %}
+</ul>
+
+{% endblock conteudo %}

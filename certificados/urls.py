@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.urls import path
 from django.conf import settings
-from django.conf.urls.static import static
 
 from certificados.views import *
 
 urlpatterns = [
-    #path('certificados/', certificados_list_view, name='certificados-list'),
+    # Nível usuário
+    path('', certificados_list_view, name='certificados-list'),
+    path('<int:pid>/', certificados_detail_view, name='certificados-detail'),
+    path('<int:pid>/download/', certificados_download_view, name='certificados-download'),
+
+    # Nível administrador
+    path('admin/', certificados_admin_list_view, name='certificados-admin-list'),
+    path('admin/new/', certificados_admin_create_view, name='certificados-admin-create'),
+    path('admin/<int:pid>/', certificados_admin_detail_view, name='certificados-admin-detail'),
+    path('admin/<int:pid>/update/', certificados_admin_update_view, name='certificados-admin-update'),
+    path('admin/<int:pid>/delete/', certificados_admin_delete_view, name='certificados-admin-delete'),
 ]

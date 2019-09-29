@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>{{ 'Certificado'|upper }}</h1>
+<h2>{{ object.ptext }}</h2>
+<p>{{ object.imagem_fundo }}</p>
+<p>{{ object.imagem_evento }}</p>
+<form method="POST">{% csrf_token %}
+	<input type="submit" name="delete" value="Excluir">
+</form>
+
+{% endblock conteudo %}
