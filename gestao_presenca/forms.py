@@ -6,6 +6,7 @@ class AtividadeForm(forms.ModelForm):
 		fields = [
 		'titulo',
 		'descricao',
+		'carga_horaria',
 		'palestrante'
 		]
 
@@ -18,6 +19,7 @@ class InscricaoForm(forms.ModelForm):
 	class Meta:
 		model = Inscricao
 		fields = [
+		'participou',
 		'atividades',
 		'usuario'
 		]
