@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>{{ 'Modelos de Certificados Disponíveis'|upper }}</h1>
+<ul>
+	{% for item in object %}
+		<li><b>{{ item.id }}</b> - {{ item.ptext }} - <a href="{{ item.get_admin_absolute_url }}">Visualizar</a> | <a href="{{ item.id }}/update/">Alterar</a> | <a href="{{ item.id }}/delete/">Deletar</a></li>
+	{% endfor %}
+</ul>
+
+{% endblock conteudo %}
