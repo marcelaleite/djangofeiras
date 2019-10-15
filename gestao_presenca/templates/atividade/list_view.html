@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>{{ 'Atividade'|upper}}</h1>
+<ul>
+	{% for item in object %}
+	<li><b><a href='{{ item.get_absolute_url }}'>{{ item.titulo }}</a></b> - {{ item.descricao }} - <a href='{{ item.id }}/update/'>Alterar</a>| <a href='{{ item.id }}/delete/'>Excluir</a></li>
+	{% endfor %}
+</ul>
+{% endblock conteudo %}

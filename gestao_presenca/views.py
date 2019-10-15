@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404,redirect
 
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Atividade,Inscricao
+from django.contrib.auth import authenticate, login
 
 def atividade_list_view(request):
 	obj = Atividade.objects.all()
@@ -94,4 +96,13 @@ def inscricao_delete_view(request,pid):
 		'form': form
 	}
 	return render(request,'inscricao/delete_view.html',contexto)
+
+
+def confirmacao_presenca(request, id):
+	#template_name = 'gestao_presenca/QRcode.html'
+	#confirmacao_presenca = Inscricao.objects.get(pk=id)
+	username = request.USER
+	user = authenticate(request, username=username)
+	if user is not None:
+		login(request,user)
 
