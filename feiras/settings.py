@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'certificados',
     'gestao_presenca',
+    'accounts',
 ]
 
 MIDDLEWARE = [
