@@ -98,11 +98,12 @@ def inscricao_delete_view(request,pid):
 	return render(request,'inscricao/delete_view.html',contexto)
 
 
-def confirmacao_presenca(request, id):
+def confirmacao_presenca(request, id, hash):
 	#template_name = 'gestao_presenca/QRcode.html'
 	#confirmacao_presenca = Inscricao.objects.get(pk=id)
 	username = request.USER
 	user = authenticate(request, username=username)
 	if user is not None:
 		login(request,user)
+		return render(request,'presenca/QRcode.html',contexto)
 
