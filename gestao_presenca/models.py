@@ -5,13 +5,13 @@ from django.urls import reverse
 class Atividade(models.Model):
 	titulo = models.CharField(max_length = 200)
 	descricao = models.TextField()
-	carga_horaria = models.DecimalField(null = False, max_digits = 2)
+	carga_horaria = models.DecimalField(decimal_places = 2, max_digits = 2, null = False)
 	palestrante = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 	def get_absolute_url(self):
 		return reverse('atividade-detail',kwargs={'pid':self.id})
 	def __str__(self):
 		return self.titulo+' - '+self.palestrante.get_full_name()
-	
+
 class Inscricao(models.Model):
 	data = models.DateField(auto_now_add = True)
 	participou = models.BooleanField(default = False)
@@ -43,9 +43,8 @@ class Pessoa(models.Model):
 
     usuario = models.OneToOneField(auth.models.User,on_delete=models.CASCADE)
 
- 
+
 
     def get_absolute_url(self):
 
                                return reverse('pessoa-detail',kwargs={'pid':self.id})
-

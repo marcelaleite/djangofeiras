@@ -23,3 +23,22 @@ class InscricaoForm(forms.ModelForm):
 		'atividades',
 		'usuario'
 		]
+
+class PessoaForm(forms.ModelForm):
+    class Meta:
+        model = Pessoa
+        fields = [
+        'nome',
+        'sobrenome',
+        'data_nascimento',
+        'nacionalidade',
+        'cpf',
+        'rg',
+        'telefone',
+        'email',
+        'instituicao',
+        'formacao',
+        'tipo',
+        'cargo',
+        'assinatura'
+        ]
