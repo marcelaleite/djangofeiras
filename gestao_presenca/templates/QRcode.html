@@ -1,3 +1,10 @@
+
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
 {% load qr_code %}
 
-{% qr_from_text "Hello World!" size="M" %}
+{% qr_from_text 'Hello World' size="M" %}
+
+{% endblock conteudo %}
