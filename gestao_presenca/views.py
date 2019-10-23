@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Atividade,Inscricao
 from django.contrib.auth import authenticate, login
+from hashlib import sha1
 
 def atividade_list_view(request):
 	obj = Atividade.objects.all()
@@ -107,3 +108,11 @@ def confirmacao_presenca(request, id, hash):
 		login(request,user)
 		return render(request,'presenca/QRcode.html',contexto)
 
+
+def gerarQRCODE(request, id_atividades):
+	s = data_inicio, data_fim, hora_inicio, hora_fim, local
+	hash = sha1(s.encode('utf-8')).hexdigest()
+	contexto = {
+	'hash':hash
+	}
+	return render(request,'presenca/QRcode.html',contexto)
