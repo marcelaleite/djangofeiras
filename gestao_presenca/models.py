@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import auth
 from django.urls import reverse
-from gestao_feira.models import Feiras
+from gestao_feira.models import Feira
 
 class Atividade(models.Model):
 	titulo = models.CharField(max_length = 200)
