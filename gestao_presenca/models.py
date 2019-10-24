@@ -5,7 +5,7 @@ from django.urls import reverse
 class Atividade(models.Model):
 	titulo = models.CharField(max_length = 200)
 	descricao = models.TextField()
-	carga_horaria = models.DecimalField(decimal_places = 2, max_digits = 2, null = False)
+	carga_horaria = models.DecimalField(decimal_places = 1, max_digits = 3, null = False, default = 0)
 	palestrante = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 	def get_absolute_url(self):
 		return reverse('atividade-detail',kwargs={'pid':self.id})
