@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib import auth
 from django.urls import reverse
 from django.conf import settings
+from gestao_presenca.models import Atividade
 
 class Feira(models.Model):
     nome_feira = models.CharField(max_length=120)
@@ -24,7 +25,7 @@ class Feira(models.Model):
     whatsapp = models.CharField(max_length=120)
 
     def get_absolute_url(self):
-		return reverse('feira-detail',kwargs={'pid':self.id})
+        return reverse('feira-detail',kwargs={'pid':self.id})
 
 class Cronograma(models.Model):
     data = models.DateField()
@@ -35,7 +36,7 @@ class Cronograma(models.Model):
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-		return reverse('cronograma-detail',kwargs={'pid':self.id})
+        return reverse('cronograma-detail',kwargs={'pid':self.id})
 
 class Organizadores(models.Model):
     funcao = models.CharField(max_length=120)
@@ -48,7 +49,7 @@ class Organizadores(models.Model):
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-		return reverse('organizadores-detail',kwargs={'pid':self.id})
+        return reverse('organizadores-detail',kwargs={'pid':self.id})
 
 class Patrocinadores(models.Model):
     nome = models.CharField(max_length=120)
@@ -57,14 +58,14 @@ class Patrocinadores(models.Model):
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-		return reverse('patrocinadores-detail',kwargs={'pid':self.id})
+        return reverse('patrocinadores-detail',kwargs={'pid':self.id})
 
 class Observacoes(models.Model):
     obs = models.TextField()
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-		return reverse('observacoes-detail',kwargs={'pid':self.id})
+        return reverse('observacoes-detail',kwargs={'pid':self.id})
 
 class Instituicao(models.Model):
     razao_social = models.CharField(max_length=120)
