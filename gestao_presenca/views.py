@@ -50,9 +50,8 @@ def inscricao_create_view(request):
 		form = InscricaoForm(request.POST, request.FILES or None,initial={'submetido_por': request.user})
 		if form.is_valid():
 			fn = form.save(commit=False)
-			fn.submetido_por = request.user
 			fn.save()
-	form = SubmissaoForm()
+	form = InscricaoForm()
 	contexto = {
 		'form': form
 	}
@@ -98,21 +97,24 @@ def inscricao_delete_view(request,pid):
 	}
 	return render(request,'inscricao/delete_view.html',contexto)
 
-
+@login_required
 def confirmacao_presenca(request, id, hash):
 	#template_name = 'gestao_presenca/QRcode.html'
 	#confirmacao_presenca = Inscricao.objects.get(pk=id)
+	booleanFilter(participou=True)
 	username = request.USER
 	user = authenticate(request, username=username)
 	if user is not None:
 		login(request,user)
-		return render(request,'presenca/QRcode.html',contexto)
+		return render(request,'atividade/QRcode.html',contexto)
 
-
+@login_required
 def gerarQRCODE(request, id_atividades):
-	s = data_inicio, data_fim, hora_inicio, hora_fim, local
+	obj = get_object_or_404(Atividade,id= id_atividades)
+	s = obj.titulo
 	hash = sha1(s.encode('utf-8')).hexdigest()
 	contexto = {
 	'hash':hash
 	}
-	return render(request,'presenca/QRcode.html',contexto)
+	return render(request,'atividade/QRcode.html',contexto)
+	
