@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'certificados',
     'gestao_presenca',
     'accounts',
-    'gestao_feira'
+    'gestao_feira',
+    'qr_code'
 ]
 
 MIDDLEWARE = [
