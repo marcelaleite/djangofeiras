@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib import auth
 from django.urls import reverse
 from django.conf import settings
-from gestao_presenca.models import Atividade
 
 class Feira(models.Model):
     nome_feira = models.CharField(max_length=120)
@@ -32,7 +31,6 @@ class Cronograma(models.Model):
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
     local = models.CharField(max_length=120)
-    atividade = models.ForeignKey(Atividade,on_delete=models.CASCADE)
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 
     def get_absolute_url(self):
