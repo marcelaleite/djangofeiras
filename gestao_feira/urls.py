@@ -3,6 +3,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 #from home.views import home_view
+from gestao_feira.views import (feira_list_view, feira_detail_view, feira_create_view, feira_update_view, feira_delete_view, cronograma_list_view, cronograma_detail_view, cronograma_create_view,
+cronograma_update_view, cronograma_delete_view, organizadores_list_view, organizadores_detail_view, organizadores_create_view, organizadores_update_view, organizadores_delete_view,
+patrocinadores_list_view, patrocinadores_detail_view, patrocinadores_create_view, patrocinadores_update_view, patrocinadores_delete_view, observacoes_list_view, observacoes_detail_view,
+observacoes_create_view, observacoes_update_view, observacoes_delete_view, instituicao_list_view, instituicao_detail_view, instituicao_create_view, instituicao_update_view, instituicao_delete_view)
 
 urlpatterns = [
     path('feira/', feira_list_view,name='feira-list'),

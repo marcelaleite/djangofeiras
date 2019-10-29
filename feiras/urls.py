@@ -26,5 +26,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('certificados/', include('certificados.urls')),
     path('gestao_presenca/', include('gestao_presenca.urls')),
-    #path('gestao_feira/', include('gestao_feira.urls')),
+    path('gestao_feira/', include('gestao_feira.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
