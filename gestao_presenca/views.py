@@ -110,11 +110,12 @@ def confirmacao_presenca(request, id, hash):
 
 @login_required
 def gerarQRCODE(request, id_atividades):
-	obj = get_object_or_404(Atividade,id= id_atividades)
+	obj = get_object_or_404(Atividade,id=id_atividades)
 	s = obj.titulo
 	hash = sha1(s.encode('utf-8')).hexdigest()
+	link = '/'+id_atividades+'/?hash='+hash
 	contexto = {
-	'hash':hash
+	'hash':hash,
+	'link':link
 	}
 	return render(request,'atividade/QRcode.html',contexto)
-	
