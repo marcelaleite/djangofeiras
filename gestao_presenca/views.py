@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404,redirect
-
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Atividade,Inscricao
 from django.contrib.auth import authenticate, login
 from hashlib import sha1
+from datetime import datetime
 
 def atividade_list_view(request):
 	obj = Atividade.objects.all()
@@ -101,21 +102,17 @@ def inscricao_delete_view(request,pid):
 def confirmacao_presenca(request, id, hash):
 	#template_name = 'gestao_presenca/QRcode.html'
 	#confirmacao_presenca = Inscricao.objects.get(pk=id)
-	booleanFilter(participou=True)
-	username = request.USER
-	user = authenticate(request, username=username)
-	if user is not None:
-		login(request,user)
-		return render(request,'atividade/QRcode.html',contexto)
+	return render(request,'atividade/QRcode.html',contexto)
 
 @login_required
 def gerarQRCODE(request, id_atividades):
 	obj = get_object_or_404(Atividade,id=id_atividades)
-	s = obj.titulo
+	s = obj.titulo+datetime.now().strftime('%d/%m/%y %H:%M:%S')
 	hash = sha1(s.encode('utf-8')).hexdigest()
-	link = '/'+id_atividades+'/?hash='+hash
+	link = request.build_absolute_uri(reverse('gestao_presenca:confirmacao',kwargs={'id_atividades':id_atividades})+'/'+hash)
 	contexto = {
 	'hash':hash,
 	'link':link
 	}
 	return render(request,'atividade/QRcode.html',contexto)
+	#return HttpResponse(request, 'confirmacao_presenca/QRcode.html',contexto)
