@@ -8,11 +8,10 @@ class Atividade(models.Model):
 	descricao = models.TextField()
 	carga_horaria = models.DecimalField(decimal_places = 1, max_digits = 3, null = False, default = 0)
 	palestrante = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
-	feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
 	def get_absolute_url(self):
 		return reverse('atividade-detail',kwargs={'pid':self.id})
 	def __str__(self):
-		return self.titulo+' - '+self.palestrante.get_full_name()
+		return str(self.id) + '-' +self.titulo+' - '+self.palestrante.get_full_name()
 
 class Inscricao(models.Model):
 	data = models.DateField(auto_now_add = True)
