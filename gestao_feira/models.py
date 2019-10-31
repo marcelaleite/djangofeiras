@@ -15,13 +15,13 @@ class Feira(models.Model):
     cidade = models.CharField(max_length=120)
     bairro = models.CharField(max_length=120)
     endereco = models.CharField(max_length=120)
-    complemento = models.CharField(max_length=120)
+    complemento = models.CharField(max_length=120, null=True, blank=True)
     facebook = models.CharField(max_length=120)
     instagram = models.CharField(max_length=120)
     twitter = models.CharField(max_length=120, null=True, blank=True)
-    email = models.EmailField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=50)
     telefone = models.CharField(max_length=120)
-    whatsapp = models.CharField(max_length=120)
+    whatsapp = models.CharField(max_length=120, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('feira-detail',kwargs={'pid':self.id})
