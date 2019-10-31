@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Feira,Cronograma,Organizadores,Patrocinadores,Observacoes,Instituicao
+from .models import Feira,Organizadores,Patrocinadores,Observacoes,Instituicao
 from django.contrib.auth import authenticate, login
 
 #	FEIRA	#
@@ -55,57 +55,6 @@ def feira_delete_view(request, pid):
         'object' : obj
     }
     return render(request, 'feira/delete_view.html', contexto)
-
-#	CRONOGRAMA	#
-def cronograma_list_view(request):
-	obj = Cronograma.objects.all()
-	contexto = {
-		'object': obj
-	}
-	return render(request,'cronograma/list_view.html',contexto)
-
-def cronograma_detail_view(request, pid):
-	obj = get_object_or_404(Cronograma, id=pid)
-	contexto = {
-		'object': obj
-	}
-	return render(request,'cronograma/detail_view.html',contexto)
-
-def cronograma_create_view(request):
-    form = CronogramaForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-        form = CronogramaForm()
-
-    contexto = {
-        'form' : form
-    }
-    return render(request, 'cronograma/create_view.html', contexto)
-
-def cronograma_update_view(request, pid):
-    obj = get_object_or_404(Cronograma, id=pid)
-    form = CronogramaForm(request.POST or None, instance = obj)
-
-    if form.is_valid():
-        form.save()
-
-    contexto = {
-        'form' : form
-    }
-    return render(request, 'cronograma/create_view.html', contexto)
-
-def cronograma_delete_view(request, pid):
-    obj = get_object_or_404(Cronograma, id=pid)
-
-    if request.method == 'POST':
-        obj.delete()
-        return redirect('../../')
-
-    contexto = {
-        'object' : obj
-    }
-    return render(request, 'cronograma/delete_view.html', contexto)
 
 #	ORGANIZADORES	#
 def organizadores_list_view(request):

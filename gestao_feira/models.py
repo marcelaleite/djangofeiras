@@ -19,22 +19,12 @@ class Feira(models.Model):
     facebook = models.CharField(max_length=120)
     instagram = models.CharField(max_length=120)
     twitter = models.CharField(max_length=120, null=True, blank=True)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50, default=' ')
     telefone = models.CharField(max_length=120)
     whatsapp = models.CharField(max_length=120, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('feira-detail',kwargs={'pid':self.id})
-
-class Cronograma(models.Model):
-    data = models.DateField()
-    hora_inicio = models.TimeField()
-    hora_fim = models.TimeField()
-    local = models.CharField(max_length=120)
-    feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
-
-    def get_absolute_url(self):
-        return reverse('cronograma-detail',kwargs={'pid':self.id})
 
 class Organizadores(models.Model):
     funcao = models.CharField(max_length=120)

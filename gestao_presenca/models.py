@@ -13,6 +13,18 @@ class Atividade(models.Model):
 	def __str__(self):
 		return str(self.id) + '-' +self.titulo+' - '+self.palestrante.get_full_name()
 
+class Cronograma(models.Model):
+    data = models.DateField()
+    hora_inicio = models.TimeField()
+    hora_fim = models.TimeField()
+    local = models.CharField(max_length=120)
+    hash = models.TextField()
+    feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
+    atividade = models.ForeignKey(Atividade,on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('cronograma-detail',kwargs={'pid':self.id})
+
 class Inscricao(models.Model):
 	data = models.DateField(auto_now_add = True)
 	participou = models.BooleanField(default = False)
