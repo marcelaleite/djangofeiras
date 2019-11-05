@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h3>{{ 'Atividade'|upper}}</h3>
+<p>{{ object.data }}</p>
+<p>{{ object.hora_inicio }}</p>
+<p>{{ object.hora_fim }}</p>
+<p>{{ object.local }}</p>
+<p>{{ object.hash }}</p>
+ {% load qr_code %}
+<ul>
+{% endblock conteudo %}

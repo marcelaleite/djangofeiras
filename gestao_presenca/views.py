@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Atividade,Inscricao
+from .models import Atividade,Inscricao,Cronograma
 from django.contrib.auth import authenticate, login
 from hashlib import sha1
 from datetime import datetime
