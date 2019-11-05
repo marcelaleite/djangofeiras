@@ -15,6 +15,18 @@ class AtividadeFormManual(forms.Form):
 	descricao = models.TextField()
 	palestrante = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 
+class CronogramaForm(forms.ModelForm):
+	class Meta:
+		model = Cronograma
+		fields = [
+	    'data',
+	    'hora_inicio',
+	    'hora_fim',
+	    'local',
+	    'atividade',
+	    'feira'
+	    ]
+
 class InscricaoForm(forms.ModelForm):
 	class Meta:
 		model = Inscricao
