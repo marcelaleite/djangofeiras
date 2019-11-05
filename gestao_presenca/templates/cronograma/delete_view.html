@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h3>{{ 'Cronograma'|upper}}</h3>
+<p>{{ object.data }}</p>
+<p>{{ object.hora_inicio }}</p>
+<p>{{ object.hora_fim }}</p>
+<p>{{ object.local }}</p>
+<p>{{ object.hash }}</p>
+<form method="POST">{% csrf_token %}
+<input type="submit" value="Excluir">
+</form>
+{% endblock conteudo %}

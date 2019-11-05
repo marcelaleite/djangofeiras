@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h3>{{ 'Cronograma'|upper}}</h3>
+<ul>
+	{% for item in object %}
+# <li><b><a href='{{ item.get_absolute_url }}'>{{ item.data }}</a></b> - {{ item.hora_inicio }} - {{item.hora_fim}} - {{item.local}} - {{item.hash}} <a href='{{ item.id }}/update/'>Alterar</a>| <a href='{{ item.id }}/delete/'>Excluir</a></li>
+  {% endfor %}
+</ul>
+{% endblock conteudo %}
