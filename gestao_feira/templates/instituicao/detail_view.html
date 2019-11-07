@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>{{ 'Instituicao - '|upper}}{{ object.nome|upper }}</h1>
+<p><b>Razão Social:</b> {{ object.razao_social }}</p>
+<p><b>CEP: </b>{{ object.cep }}</p>
+<p><b>Cidade: </b>{{ object.cidade }} - {{ object.uf }}</p>
+<p><b>Bairro: </b>{{ object.bairro }}</p>
+<p><b>Endereço: </b>{{ object.endereco }}</p>
+<ul>
+{% endblock conteudo %}

@@ -25,6 +25,9 @@ class Feira(models.Model):
 
     def get_absolute_url(self):
         return reverse('feira-detail',kwargs={'pid':self.id})
+    def __str__(self):
+        nome = str(self.id) + ' - ' + self.nome_feira
+        return nome
 
 class Organizadores(models.Model):
     funcao = models.CharField(max_length=120)
