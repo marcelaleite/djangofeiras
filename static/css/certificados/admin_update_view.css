@@ -36,7 +36,8 @@ header {
 	text-align: center;
 }
 
-.box-view p {
+.box-view p,
+.box-view #block-tags {
 	background-color: #DCDCDC;
 
 	width: 94%;
@@ -48,6 +49,10 @@ header {
 
 	padding: 5px;
 	margin: 10px 0 10px 2.5%;
+}
+
+.box-view #block-tags h4 {
+	text-align: center;
 }
 
 .box-view form input[type=submit] {

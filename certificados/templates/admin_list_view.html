@@ -4,7 +4,7 @@
 <h1>{{ 'Modelos de Certificados Disponíveis'|upper }}</h1>
 <ul>
 	{% for item in object %}
-		<li><b>{{ item.id }}</b> - {{ item.ptext }} - <a href="{{ item.get_admin_absolute_url }}">Visualizar</a> | <a href="{{ item.id }}/update/">Alterar</a> | <a href="{{ item.id }}/delete/">Deletar</a></li>
+		<li><b>#{{ item.id }}</b> - {{ item.nome_modelo }} - <a href="{{ item.get_model_absolute_url }}">Visualizar</a> | <a href="{{ item.get_model_absolute_url }}update/">Alterar</a> | <a href="{{ item.get_model_absolute_url }}delete/">Deletar</a></li>
 	{% endfor %}
 </ul>
 

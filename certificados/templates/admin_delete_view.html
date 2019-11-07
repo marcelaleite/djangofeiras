@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block conteudo %}
-<h1>{{ 'Certificado'|upper }}</h1>
-<h2>{{ object.ptext }}</h2>
-<p>{{ object.imagem_fundo }}</p>
-<p>{{ object.imagem_evento }}</p>
-<form method="POST">{% csrf_token %}
-	<input type="submit" name="delete" value="Excluir">
-</form>
+<link rel="stylesheet" href="{% static '/css/certificados/admin_delete_view.css' %}">
+<section class="box-view">
+	<h1>{{ 'Excluir Certificado'|upper }}</h1>
+	<h2>{{ object.nome_modelo }}</h2>
+	<div class="box-data">
+		<h3>Parágrafo de Descrição no Certificado</h3>
+		<p id="pText">{{ object.ptext }}</p>
+	</div>
+	<div class="box-data">
+		<h3>Imagem de Fundo do Certificado</h3>
+		<img src="{{ object.imagem_fundo.url }}" class="img-responsive" alt="{{ object.imagem_fundo.url }}">
+	</div>
+	<div class="box-data">
+		<h3>Imagem de Fundo do Evento</h3>
+		<img src="{{ object.imagem_evento.url }}" id="img-evento" class="img-responsive" alt="{{ object.imagem_evento.url }}">
+	</div>
+	<form method="POST">{% csrf_token %}
+		<input type="submit" name="delete" value="Excluir">
+	</form>
+</section>   <!-- fim da classe .box-view -->
 
 {% endblock conteudo %}

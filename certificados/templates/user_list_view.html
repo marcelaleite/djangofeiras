@@ -3,9 +3,13 @@
 {% block conteudo %}
 <h1>{{ 'Certificados Disponíveis'|upper }}</h1>
 <ul>
-	{% for item in object %}
-		<li>{{ item.ptext }} - <a href="{{ item.get_absolute_url }}">Visualizar</a> | <a href="{{ item.id }}/download/">Download</a></li>
-	{% endfor %}
+	{% if object %}
+		{% for item in object %}
+			<li><b>#{{ item.id }}</b> - {{ item.nome_feira }} - <a href="{{ item.id_feira }}/">Visualizar</a> | <a href="{{ item.id_feira }}/download/">Download</a></li>
+		{% endfor %}
+	{% else %}
+    <p>Não há certificados disponíveis.</p>
+	{% endif %}
 </ul>
 
 {% endblock conteudo %}
