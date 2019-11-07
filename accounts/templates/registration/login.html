@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Login{% endblock %}
 
 {% block conteudo %}
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+<link rel="stylesheet" href="{% static '/css/accounts/registration/login.css' %}">
+<section class="box-login">
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+</section>   <!-- fim da classe .box-login -->
 {% endblock %}
