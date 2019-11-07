@@ -1,4 +1,4 @@
-"""feiras URL Configuration
+"""certificado URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -24,10 +24,10 @@ urlpatterns = [
     path('<int:pid>/', certificados_detail_view, name='certificados-detail'),
     path('<int:pid>/download/', certificados_download_view, name='certificados-download'),
 
-    # Nível administrador
-    path('admin/', certificados_admin_list_view, name='certificados-admin-list'),
-    path('admin/new/', certificados_admin_create_view, name='certificados-admin-create'),
-    path('admin/<int:pid>/', certificados_admin_detail_view, name='certificados-admin-detail'),
-    path('admin/<int:pid>/update/', certificados_admin_update_view, name='certificados-admin-update'),
-    path('admin/<int:pid>/delete/', certificados_admin_delete_view, name='certificados-admin-delete'),
+    # Nível administrador (Modelos)
+    path('modelos/', certificados_admin_list_view, name='certificados-model-list'),
+    path('modelo/new/', certificados_admin_create_view, name='certificados-model-create'),
+    path('modelo/<int:pid>/', certificados_admin_detail_view, name='certificados-model-detail'),
+    path('modelo/<int:pid>/update/', certificados_admin_update_view, name='certificados-model-update'),
+    path('modelo/<int:pid>/delete/', certificados_admin_delete_view, name='certificados-model-delete'),
 ]
