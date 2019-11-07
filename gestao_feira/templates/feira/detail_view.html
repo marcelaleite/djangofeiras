@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h1>{{ 'Feira - '|upper}}{{ object.nome_feira|upper }}</h1>
+<p><b>Área de atuação:</b> {{ object.area }}</p>
+<p><b>Data Inicio: </b>{{ object.data_inicio }} - <b>Data Fim: </b>{{ object.data_fim }}</p>
+<p><b>Horário Inicio: </b>{{ object.hora_inicio }} - <b>Horário Fim: </b>{{ object.hora_fim }}</p>
+<p><b>CEP: </b>{{ object.cep }}</p>
+<p><b>Cidade: </b>{{ object.cidade }} - {{ object.uf }}</p>
+<p><b>Bairro: </b>{{ object.bairro }}</p>
+<p><b>Endereço: </b>{{ object.endereco }}</p>
+<p><b>Complemento: </b>{{ object.complemento }}</p>
+<p><b>Facebook: </b>{{ object.facebook }}</p>
+<p><b>Instagram: </b>{{ object.instagram }}</p>
+<p><b>Twitter: </b>{{ object.twitter }}</p>
+<p><b>Email: </b>{{ object.email }}</p>
+<p><b>Telefone: </b>{{ object.telefone }}</p>
+<p><b>Whatsapp: </b>{{ object.whatsapp }}</p>
+<ul>
+{% endblock conteudo %}
