@@ -1,5 +1,5 @@
 from django import forms
-from .models import Feira, Cronograma, Organizadores, Patrocinadores,
+from .models import Feira, Organizadores, Patrocinadores,
  Observacoes, Pessoa
 
  class FeiraForm(forms.ModelForm):
@@ -25,18 +25,6 @@ from .models import Feira, Cronograma, Organizadores, Patrocinadores,
         'telefone',
         'whatsapp'
 		]
-
-class CronogramaForm(forms.ModelForm):
-    class Meta:
-        model = Cronograma
-        fields = [
-        'data',
-        'hora_inicio',
-        'hora_fim',
-        'local',
-        'atividade',
-        'feira'
-        ]
 
 class OrganizadoresForm(forms.ModelForm):
     class Meta:

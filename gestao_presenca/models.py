@@ -18,7 +18,7 @@ class Cronograma(models.Model):
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
     local = models.CharField(max_length=120)
-    hash = models.TextField()
+    hash = models.TextField(null = True, blank = True)
     feira = models.ForeignKey(Feira,on_delete=models.CASCADE)
     atividade = models.ForeignKey(Atividade,on_delete=models.CASCADE)
 
