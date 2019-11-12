@@ -11,7 +11,7 @@ from certificados.forms import CertificadoForm, CertificadoFormManual
 
 from gestao_feira.models import Feira, Patrocinadores
 
-from gestao_presenca.models import Atividade, Inscricao
+from gestao_presenca.models import Atividade, Inscricao, Pessoa
 
 # Lista dos meses em extenso
 __mes_ext = {1:'Janeiro', 2 :'Fevereiro', 3:'Março', 4:'Abril', 5:'Maio', 6:'Junho', 7:'Julho', 8:'Agosto', 9:'Setembro', 10:'Outubro', 11:'Novembro', 12:'Dezembro'}
@@ -58,7 +58,7 @@ def makeDadosCertificado(objModelUser=None,
         if (type(objModelPessoa) is not Pessoa):
             raise TypeError("O parâmetro 'objModelPessoa' deve obrigatóriamente ser um objeto do tipo modelo de 'Pessoa'!")
         else:
-            dadosCert.dataNascimento = objModelPessoa.data_nascimento
+            dadosCert.dataNascimento = _dataExtenso(objModelPessoa.data_nascimento)
             dadosCert.naturalidadeUF = objModelPessoa.nacionalidade
             dadosCert.rg = objModelPessoa.rg
 
