@@ -1,6 +1,5 @@
 from django import forms
-from .models import Feira, Organizadores, Patrocinadores, Observacoes
-from gestao_presenca.models import Pessoa
+from .models import Feira, Organizadores, Patrocinadores, Observacoes, Instituicao
 
 class FeiraForm(forms.ModelForm):
     class Meta:
