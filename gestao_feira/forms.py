@@ -5,9 +5,9 @@ class FeiraForm(forms.ModelForm):
     class Meta:
         model = Feira
         fields = [
-		'nome_feira',
-		'area',
-		'data_inicio',
+        'nome_feira',
+        'area',
+        'data_inicio',
         'data_fim',
         'hora_inicio',
         'hora_fim',
