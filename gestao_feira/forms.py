@@ -1,14 +1,14 @@
 from django import forms
-from .models import Feira, Organizadores, Patrocinadores,
- Observacoes, Pessoa
+from .models import Feira, Organizadores, Patrocinadores, Observacoes
+from gestao_presenca.models import Pessoa
 
- class FeiraForm(forms.ModelForm):
+class FeiraForm(forms.ModelForm):
     class Meta:
         model = Feira
-		fields = [
-		'nome_feira',
-		'area',
-		'data_inicio',
+        fields = [
+        'nome_feira',
+        'area',
+        'data_inicio',
         'data_fim',
         'hora_inicio',
         'hora_fim',
@@ -36,7 +36,7 @@ class OrganizadoresForm(forms.ModelForm):
         'email',
         'telefone',
         'whatsapp',
-        'pessoa',
+        'usuario',
         'feira'
         ]
 
@@ -60,7 +60,7 @@ class ObservacoesForm(forms.ModelForm):
 
 class InstituicaoForm(forms.ModelForm):
     class Meta:
-        model = Observacoes
+        model = Instituicao
         fields = [
         'razao_social',
         'nome',
