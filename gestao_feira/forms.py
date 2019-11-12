@@ -1,11 +1,10 @@
 from django import forms
-from .models import Feira, Organizadores, Patrocinadores,
- Observacoes, Pessoa
+from .models import Feira, Organizadores, Patrocinadores, Observacoes, Instituicao
 
- class FeiraForm(forms.ModelForm):
+class FeiraForm(forms.ModelForm):
     class Meta:
         model = Feira
-		fields = [
+        fields = [
 		'nome_feira',
 		'area',
 		'data_inicio',
@@ -36,7 +35,7 @@ class OrganizadoresForm(forms.ModelForm):
         'email',
         'telefone',
         'whatsapp',
-        'pessoa',
+        'usuario',
         'feira'
         ]
 
@@ -60,7 +59,7 @@ class ObservacoesForm(forms.ModelForm):
 
 class InstituicaoForm(forms.ModelForm):
     class Meta:
-        model = Observacoes
+        model = Instituicao
         fields = [
         'razao_social',
         'nome',
