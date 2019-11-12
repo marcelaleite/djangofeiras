@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block conteudo %}
-<h1>{{ 'Certificados Disponíveis'|upper }}</h1>
-<ul>
+<link rel="stylesheet" href="{% static '/css/certificados/user_list_view.css' %}">
+<section class="box-view">
+	<h1>{{ 'Certificados Disponíveis'|upper }}</h1>
 	{% if object %}
+	<ul>
 		{% for item in object %}
 			<li><b>#{{ item.id }}</b> - {{ item.nome_feira }} - <a href="{{ item.id_feira }}/">Visualizar</a> | <a href="{{ item.id_feira }}/download/">Download</a></li>
 		{% endfor %}
+	</ul>
 	{% else %}
-    <p>Não há certificados disponíveis.</p>
+		<p>Não há certificados disponíveis no momento.</p>
 	{% endif %}
-</ul>
-
+</section>   <!-- fim da classe .box-view -->
 {% endblock conteudo %}

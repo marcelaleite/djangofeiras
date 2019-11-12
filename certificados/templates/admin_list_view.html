@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block conteudo %}
-<h1>{{ 'Modelos de Certificados Disponíveis'|upper }}</h1>
-<ul>
-	{% for item in object %}
-		<li><b>#{{ item.id }}</b> - {{ item.nome_modelo }} - <a href="{{ item.get_model_absolute_url }}">Visualizar</a> | <a href="{{ item.get_model_absolute_url }}update/">Alterar</a> | <a href="{{ item.get_model_absolute_url }}delete/">Deletar</a></li>
-	{% endfor %}
-</ul>
-
+<link rel="stylesheet" href="{% static '/css/certificados/admin_list_view.css' %}">
+<section class="box-view">
+	<h1>{{ 'Modelos de Certificados Disponíveis'|upper }}</h1>
+	{% if object %}
+	<ul>
+		{% for item in object %}
+			<li><b>#{{ item.id }}</b> - {{ item.nome_modelo }} - <a href="{{ item.get_model_absolute_url }}">Visualizar</a> | <a href="{{ item.get_model_absolute_url }}update/">Alterar</a> | <a href="{{ item.get_model_absolute_url }}delete/">Deletar</a></li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<p>Não há modelos de certificado disponíveis.</p>
+	{% endif %}
+</section>   <!-- fim da classe .box-view -->
 {% endblock conteudo %}

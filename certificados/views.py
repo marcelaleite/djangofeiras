@@ -139,7 +139,7 @@ def certificados_detail_view(request, pid):
     print()
 
     pessoa = None
-    pes = Pessoa.objects.filter(id=request.user.id)
+    pes = Pessoa.objects.filter(usuario=request.user.id)
     print(pes)
     if (pes != None and len(pes) > 0):
         pessoa = pes[0]
