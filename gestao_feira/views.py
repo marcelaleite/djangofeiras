@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Feira,Organizadores,Patrocinadores,Observacoes,Instituicao
 from django.contrib.auth import authenticate, login
+from .forms import FeiraForm, OrganizadoresForm, PatrocinadoresForm, ObservacoesForm, InstituicaoForm
 
 #	FEIRA	#
 def feira_list_view(request):
