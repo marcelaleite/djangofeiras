@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>{{ 'Organizadores'|upper }}</h1>
+<h2><b>Pessoa: </b>{{ object.usuario }}</h2>
+<p><b>Função: </b>{{ object.funcao }}</p>
+<form method="post">{% csrf_token %}
+  <input type="submit" value="Excluir">
+</form>
+{% endblock conteudo %}
