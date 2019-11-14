@@ -112,6 +112,12 @@ def certificados_detail_view(request, pid):
     print(certificado)
     print(inscricoes)
 
+    if (inscricoes == None or len(inscricoes) == 0):
+        contexto = {
+            'nome_evento':feira.nome_feira
+        }
+        return render(request, 'user_detail_view.html', contexto)
+
     atividades = []  # Lista das atividades com participação encontradas para a feira
 
     print()
