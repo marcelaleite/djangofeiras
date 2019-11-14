@@ -55,6 +55,21 @@ header {
 	text-align: center;
 }
 
+.box-view textarea {
+	font-size: 100%;
+	font: inherit;
+  resize: none;
+}
+
+.box-view #nome-modelo {
+	height: 25px;
+	margin: 5px 0 5px 5px;
+}
+
+.box-view #ptext {
+	margin: 5px 0 5px 5px;
+}
+
 .box-view form input[type=submit] {
 	font-size: 100%;
 	font: inherit;

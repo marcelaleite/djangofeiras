@@ -6,13 +6,13 @@
 <link rel="stylesheet" href="{% static '/css/certificados/tag_table.css' %}">
 <section class="box-view">
 	<h1>{{ 'Editar Certificado'|upper }}</h1>
-	<form action="" method="POST">{% csrf_token %}
+	<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 		{{ form.as_p }}
     <div id="block-tags">
   		<h4>Lista de Tags Utilizadas para o Parágrafo</h4>
 			{% include 'tag_table.html' %}
     </div>
-		<input type="submit" value="Salvar">
+		<input type="submit" name="save" value="Salvar">
 	</form>
 </section>   <!-- fim da classe .box-view -->
 

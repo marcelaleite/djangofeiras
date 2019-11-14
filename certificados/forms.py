@@ -7,9 +7,10 @@ class CertificadoForm(forms.ModelForm):
                                   max_length=50,
                                   required=True,
                                   widget=forms.Textarea(attrs={'placeholder':'Informe um nome para o modelo de certificado...',
-                                                               'id':'ptext',
+                                                               'id':'nome-modelo',
                                                                'class':'campos',
-                                                               'rows':2}))
+                                                               'cols':89,
+                                                               'rows':1}))
 
     ptext = forms.CharField(label='Paragrafo de Descrição',
                             max_length=500,
@@ -17,6 +18,7 @@ class CertificadoForm(forms.ModelForm):
                             widget=forms.Textarea(attrs={'placeholder':'Informe o paragrafo para a descrição do certificado...',
                                                          'id':'ptext',
                                                          'class':'campos',
+                                                         'cols':89,
                                                          'rows':5}))
 
     imagem_fundo = forms.ImageField(label='Imagem de Fundo',

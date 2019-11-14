@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static '/css/certificados/tag_table.css' %}">
 <section class="box-view">
 	<h1>{{ 'Novo Certificado'|upper }}</h1>
-	<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
 		{{ form.as_p }}
     <div id="block-tags">
   		<h4>Lista de Tags Utilizadas para o Parágrafo</h4>
