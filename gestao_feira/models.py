@@ -69,3 +69,10 @@ class Instituicao(models.Model):
 
     def get_absolute_url(self):
         return reverse('instituicao-detail',kwargs={'pid':self.id})
+
+class Categoria(models.Model):
+    nome = models.CharField(max_length=120)
+    privilegio = models.BooleanField()
+
+    def get_absolute_url(self):
+        return reverse('categoria-detail',kwargs={'pid':self.id})

@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404,redirect
 
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Feira,Organizadores,Patrocinadores,Observacoes,Instituicao
+from .models import Feira,Organizadores,Patrocinadores,Observacoes,Instituicao,Categoria
 from django.contrib.auth import authenticate, login
-from .forms import FeiraForm, OrganizadoresForm, PatrocinadoresForm, ObservacoesForm, InstituicaoForm
+from .forms import FeiraForm, OrganizadoresForm, PatrocinadoresForm, ObservacoesForm, InstituicaoForm, CategoriaForm
 
 #	FEIRA	#
 def feira_list_view(request):
@@ -260,3 +260,54 @@ def instituicao_delete_view(request, pid):
         'object' : obj
     }
     return render(request, 'instituicao/delete_view.html', contexto)
+
+#	CATEGORIA	#
+def categoria_list_view(request):
+	obj = Categoria.objects.all()
+	contexto = {
+		'object': obj
+	}
+	return render(request,'categoria/list_view.html',contexto)
+
+def categoria_detail_view(request, pid):
+	obj = get_object_or_404(Categoria, id=pid)
+	contexto = {
+		'object': obj
+	}
+	return render(request,'categoria/detail_view.html',contexto)
+
+def categoria_create_view(request):
+    form = CategoriaForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        form = CategoriaForm()
+
+    contexto = {
+        'form' : form
+    }
+    return render(request, 'categoria/create_view.html', contexto)
+
+def categoria_update_view(request, pid):
+    obj = get_object_or_404(Categoria, id=pid)
+    form = CategoriaForm(request.POST or None, instance = obj)
+
+    if form.is_valid():
+        form.save()
+
+    contexto = {
+        'form' : form
+    }
+    return render(request, 'categoria/create_view.html', contexto)
+
+def categoria_delete_view(request, pid):
+    obj = get_object_or_404(Categoria, id=pid)
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('../../')
+
+    contexto = {
+        'object' : obj
+    }
+    return render(request, 'categoria/delete_view.html', contexto)

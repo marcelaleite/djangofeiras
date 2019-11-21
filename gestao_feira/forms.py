@@ -1,5 +1,5 @@
 from django import forms
-from .models import Feira, Organizadores, Patrocinadores, Observacoes, Instituicao
+from .models import Feira, Organizadores, Patrocinadores, Observacoes, Instituicao, Categoria
 
 class FeiraForm(forms.ModelForm):
     class Meta:
@@ -68,4 +68,12 @@ class InstituicaoForm(forms.ModelForm):
         'cidade',
         'bairro',
         'endereco'
+        ]
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = [
+        'nome',
+        'privilegio'
         ]
