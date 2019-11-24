@@ -21,8 +21,8 @@ from certificados.views import *
 urlpatterns = [
     # Nível usuário
     path('', certificados_list_view, name='certificados-list'),
-    path('<int:pid>/', certificados_detail_view, name='certificados-detail'),
-    path('<int:pid>/download/', certificados_download_view, name='certificados-download'),
+    path('<int:pid>/<int:cid>/', certificados_detail_view, name='certificados-detail'),
+    path('<int:pid>/<int:cid>/download/', certificados_download_view, name='certificados-download'),
 
     # Nível administrador (Modelos)
     path('modelos/', certificados_admin_list_view, name='certificados-model-list'),
