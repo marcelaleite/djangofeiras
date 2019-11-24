@@ -7,6 +7,9 @@
 	<h1>{{ 'Excluir Certificado'|upper }}</h1>
 	<h2>{{ object.nome_modelo }}</h2>
 	<div class="box-data">
+		<p id="categoria">Categoria Aplicável de Certificação: <b>{{ object.categoria }}</b></p>
+	</div>
+	<div class="box-data">
 		<h3>Parágrafo de Descrição no Certificado</h3>
 		<p id="pText">{{ object.ptext }}</p>
 	</div>

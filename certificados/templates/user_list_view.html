@@ -8,7 +8,7 @@
 	{% if object %}
 	<ul>
 		{% for item in object %}
-			<li><b>#{{ item.id }}</b> - {{ item.nome_feira }} - <a href="{{ item.id_feira }}/">Visualizar</a> | <a href="{{ item.id_feira }}/download/">Download</a></li>
+			<li><b>#{{ item.id }}</b> - {{ item.nome_feira }} ( {{ item.nome_categoria }} ) - <a href="{{ item.id_feira }}/{{ item.id_categoria }}/">Visualizar</a> | <a href="{{ item.id_feira }}/{{ item.id_categoria }}/download/">Download</a></li>
 		{% endfor %}
 	</ul>
 	{% else %}
