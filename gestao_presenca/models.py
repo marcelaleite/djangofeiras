@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import auth
 from django.urls import reverse
-from gestao_feira.models import Feira
+from gestao_feira.models import Feira, Categoria
 
 class Atividade(models.Model):
 	titulo = models.CharField(max_length = 200)
@@ -31,7 +31,8 @@ class Cronograma(models.Model):
 class Inscricao(models.Model):
 	data = models.DateField(auto_now_add = True)
 	participou = models.BooleanField(default = False)
-	atividades = models.ForeignKey(Atividade,on_delete=models.CASCADE)
+	cronograma = models.ForeignKey(Cronograma,on_delete=models.CASCADE)
+	categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
 	usuario = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 	def get_absolute_url(self):
 		#return '/{self.id}/'
