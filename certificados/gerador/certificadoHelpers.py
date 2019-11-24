@@ -14,7 +14,7 @@ from gestao_feira.models import Feira, Patrocinadores
 from gestao_presenca.models import Atividade, Inscricao, Pessoa
 
 # Lista dos meses em extenso
-__mes_ext = {1:'Janeiro', 2 :'Fevereiro', 3:'Março', 4:'Abril', 5:'Maio', 6:'Junho', 7:'Julho', 8:'Agosto', 9:'Setembro', 10:'Outubro', 11:'Novembro', 12:'Dezembro'}
+__mes_ext = {1:'Janeiro', 2:'Fevereiro', 3:'Março', 4:'Abril', 5:'Maio', 6:'Junho', 7:'Julho', 8:'Agosto', 9:'Setembro', 10:'Outubro', 11:'Novembro', 12:'Dezembro'}
 
 #
 # Formatação de datas por extenso compreentidas em um periodo

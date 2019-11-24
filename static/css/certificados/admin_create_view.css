@@ -66,6 +66,15 @@ header {
 	margin: 5px 0 5px 5px;
 }
 
+.box-view #id_categoria {
+	font-size: 100%;
+	font: inherit;
+	height: 30px;
+	min-width: 200px;
+	max-width: 460px;
+	margin: 5px 0 5px 5px;
+}
+
 .box-view #ptext {
 	margin: 5px 0 5px 5px;
 }

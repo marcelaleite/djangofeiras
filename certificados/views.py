@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, FileResponse, HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import redirect
 
 import io
 from reportlab.pdfgen import canvas
@@ -18,13 +17,15 @@ from .forms import CertificadoForm, CertificadoFormManual
 from gestao_feira.models import Feira
 
 from gestao_presenca.models import Atividade, Cronograma, Inscricao, Pessoa
-#from gestao_presenca.forms import AtividadeForm, InscricaoForm
 
 # Create your views here.
 
+#
+# Lista todos os certificados que o usuário teve participação.
+#
 @login_required
 def certificados_list_view(request):
-    obj = Certificado.objects.all()
+    #obj = Certificado.objects.all()
     #obj = Inscricao.objects.all().filter(usuario__id=request.user.id, participou=True)
     print(request.user)
     print(request.user.id)
@@ -37,14 +38,17 @@ def certificados_list_view(request):
     print(Atividade.objects.all())
     print(Cronograma.objects.all())
 
+    # Verifica se o usuário está logado corretamente, senão emite notificação de permição negada.
     if (not request.user.is_authenticated):
         raise PermissionDenied()
 
     class CertificadoLista:
-        def __init__(self, id, id_feira, nome_feira):
+        def __init__(self, id, id_feira, nome_feira, id_categoria, nome_categoria):
             self.id = id
             self.id_feira = id_feira
             self.nome_feira = nome_feira
+            self.id_categoria = id_categoria
+            self.nome_categoria = nome_categoria
 
     certificados = []  # Lista dos certificados encontrados
     feiras_id = []     # Lista das feiras com participação (para evitar duplicação de certificados)
@@ -70,7 +74,8 @@ def certificados_list_view(request):
     i = 1
     for inscricao in inscricoes:
         atividade = Atividade.objects.filter(id=inscricao.atividades.id)
-        cronograma = Cronograma.objects.filter(id=inscricoes[0].atividades.id)
+        #cronograma = Cronograma.objects.filter(id=inscricoes[0].atividades.id)
+        cronograma = Cronograma.objects.filter(id=inscricao.atividades.id)
         print(inscricao)
         print(atividade)
         print(cronograma)
@@ -83,17 +88,31 @@ def certificados_list_view(request):
                 #if (not atividade[0].feira.id in feiras_id):
                 if (not feira[0].id in feiras_id):
                     #certificados.append(CertificadoLista(i, atividade[0].feira.id, feira[0].nome_feira))
-                    certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira))
+                    #certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, 1, 'Ouvinte'))
+                    certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
                     feiras_id.append(cronograma[0].feira.id)
                     i = i + 1
                     print('=> Certificado adicionado!!!')
+                else:
+                    add = True
+                    for certificado in certificados:
+                        if (certificado.id_feira == feira[0].id):
+                            if (certificado.id_categoria == inscricao.categoria.id):
+                                add = False
+                    if (add == True):
+                        #certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, 1, 'Ouvinte'))
+                        certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
+                        i = i + 1
+                        print('=> Certificado adicionado!!!')
 
     print()
     print('--> ')
+    #print(certificados)
     #print(certificados[0].id)
     #print(certificados[0].nome_feira)
     print(feiras_id)
     #print('id' in feiras_id)
+    print()
 
     contexto = {
         #'object':obj
@@ -102,16 +121,24 @@ def certificados_list_view(request):
 
     return render(request, 'user_list_view.html', contexto)
 
+#
+# Pré-visualização do certificado que o usuário solicitou e que teve participação.
+#
 @login_required
-def certificados_detail_view(request, pid):
+def certificados_detail_view(request, pid, cid):
+    # Verifica se o usuário está logado corretamente, senão emite notificação de permição negada.
+    if (not request.user.is_authenticated):
+        raise PermissionDenied()
+
     #obj = get_object_or_404(Certificado, id = pid)
     feira = get_object_or_404(Feira, id = pid)
-    certificado = get_object_or_404(Certificado, id = 1)
-    inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True)
+    certificado = get_object_or_404(Certificado, categoria=cid)
+    inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True, categoria=cid)
     print(feira)
     print(certificado)
     print(inscricoes)
 
+    # Se usuário não possuir inscrição na feira em questão, mostra uma mensagem informando:
     if (inscricoes == None or len(inscricoes) == 0):
         contexto = {
             'nome_evento':feira.nome_feira
@@ -152,15 +179,7 @@ def certificados_detail_view(request, pid):
         print(pessoa)
     print()
 
-    # Dados do certificado
-    #dadosCert = DadosCertificado(ptext=obj.ptext, imagem_fundo=obj.imagem_fundo.path, imagem_evento=obj.imagem_evento.path)
-    #dadosCert = makeDadosCertificado(obj)
-
-    # Geração do certificado
-    #certificado = GeradorCertificado(dadosCert)
-    ##certificado = makeCertificado(obj)
-    ##buffer = certificado.getCertificado()
-    #buffer = makeCertificadoBytesIO(obj)
+    # Geração do certificado com os dados carregados
     buffer = makeCertificadoBytesIO(request.user, pessoa, certificado, feira, atividades, list(patrocinadores))
 
     # FileResponse sets the Content-Disposition header so that browsers
@@ -168,8 +187,15 @@ def certificados_detail_view(request, pid):
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=False, filename='certificado.pdf')
 
+#
+# Download do certificado que o usuário solicitou e que teve participação.
+#
 @login_required
-def certificados_download_view(request, pid):
+def certificados_download_view(request, pid, cid):
+    # Verifica se o usuário está logado corretamente, senão emite notificação de permição negada.
+    if (not request.user.is_authenticated):
+        raise PermissionDenied()
+
     obj = get_object_or_404(Certificado, id = pid)
 
     # Dados do certificado
@@ -184,11 +210,15 @@ def certificados_download_view(request, pid):
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename='certificado.pdf')
 
+#
+# Lista todos os modelos de certificados cadastrados.
+# --> PERMITIDO APENAS PARA FUNCIONÁRIOS <--
+#
 @login_required
 def certificados_admin_list_view(request):
-    #if (not request.user.is_authenticated or not request.user.is_staff or not request.user.is_superuser):
+    # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
+    # senão emite notificação de permição negada:
     if (not request.user.is_authenticated or not request.user.is_staff):
-        #return HttpResponseForbidden()
         raise PermissionDenied()
 
     obj = Certificado.objects.all()
@@ -198,6 +228,10 @@ def certificados_admin_list_view(request):
 
     return render(request, 'admin_list_view.html', contexto)
 
+#
+# Criação de novo modelo de certificado.
+# --> PERMITIDO APENAS PARA FUNCIONÁRIOS <--
+#
 @login_required
 def certificados_admin_create_view(request):
     form = CertificadoForm(request.POST, request.FILES or None)
@@ -215,6 +249,10 @@ def certificados_admin_create_view(request):
 
     return render(request, 'admin_create_view.html', contexto)
 
+#
+# Visualização do modelo de certificado renderizado para o arquivo PDF.
+# --> PERMITIDO APENAS PARA FUNCIONÁRIOS <--
+#
 @login_required
 def certificados_admin_detail_view(request, pid):
     obj = get_object_or_404(Certificado, id = pid)
@@ -226,33 +264,18 @@ def certificados_admin_detail_view(request, pid):
 
         return render(request, 'admin_detail_view.html', contexto)
 
-    # Dados do certificado
-    #dadosCert = DadosCertificado(ptext=obj.ptext, imagem_fundo=obj.imagem_fundo.path, imagem_evento=obj.imagem_evento.path)
-
-    # Geração do certificado
-    #certificado = GeradorCertificado(dadosCert)
-    #buffer = certificado.getCertificado()
+    # Geração do modelo de certificado para visualização
     buffer = makeCertificadoBytesIO(objModelCertificado=obj)
-
-    # Create a file-like buffer to receive PDF data.
-    #buffer = io.BytesIO()
-
-    # Create the PDF object, using the buffer as its "file."
-    #p = canvas.Canvas(buffer)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    #p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-    #p.showPage()
-    #p.save()
 
     # FileResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=False, filename='certificado.pdf')
 
+#
+# Atualização de dados de um modelo de certificado já cadastrado.
+# --> PERMITIDO APENAS PARA FUNCIONÁRIOS <--
+#
 @login_required
 def certificados_admin_update_view(request, pid):
     obj = get_object_or_404(Certificado, id = pid)
@@ -267,6 +290,10 @@ def certificados_admin_update_view(request, pid):
 
     return render(request, 'admin_update_view.html', contexto)
 
+#
+# Exclusão do modelo de certificado.
+# --> PERMITIDO APENAS PARA FUNCIONÁRIOS <--
+#
 @login_required
 def certificados_admin_delete_view(request, pid):
     obj = get_object_or_404(Certificado, id = pid)
