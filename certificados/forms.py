@@ -1,5 +1,7 @@
 from django import forms
 
+from gestao_feira.models import Categoria
+
 from .models import Certificado
 
 class CertificadoForm(forms.ModelForm):
@@ -27,10 +29,15 @@ class CertificadoForm(forms.ModelForm):
     imagem_evento = forms.ImageField(label='Imagem do Evento',
                                      required=False)
 
+    categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(),
+                                       label='Categoria Aplicável de Certificação',
+                                       required=True)
+
     class Meta:
         model = Certificado
         fields = [
             'nome_modelo',
+            'categoria',
             'ptext',
             'imagem_fundo',
             'imagem_evento'
