@@ -26,8 +26,7 @@ class Feira(models.Model):
     def get_absolute_url(self):
         return reverse('feira-detail',kwargs={'pid':self.id})
     def __str__(self):
-        nome = str(self.id) + ' - ' + self.nome_feira
-        return nome
+        return self.nome_feira
 
 class Organizadores(models.Model):
     funcao = models.CharField(max_length=120)
@@ -41,6 +40,9 @@ class Organizadores(models.Model):
 
     def get_absolute_url(self):
         return reverse('organizadores-detail',kwargs={'pid':self.id})
+    def __str__(self):
+        org = self.funcao + ' - Feira: ' + str(self.feira)
+        return org
 
 class Patrocinadores(models.Model):
     nome = models.CharField(max_length=120)
@@ -50,6 +52,8 @@ class Patrocinadores(models.Model):
 
     def get_absolute_url(self):
         return reverse('patrocinadores-detail',kwargs={'pid':self.id})
+    def __str__(self):
+        return self.nome
 
 class Observacoes(models.Model):
     obs = models.TextField()
@@ -69,10 +73,15 @@ class Instituicao(models.Model):
 
     def get_absolute_url(self):
         return reverse('instituicao-detail',kwargs={'pid':self.id})
+    def __str__(self):
+        nome = self.nome + ' - ' + self.cidade + '/' + self.uf
+        return nome
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=120)
-    privilegio = models.BooleanField()
+    privilegio = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('categoria-detail',kwargs={'pid':self.id})
+    def __str__(self):
+        return self.nome
