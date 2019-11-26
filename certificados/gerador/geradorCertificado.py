@@ -182,8 +182,6 @@ class GeradorCertificado:
                                ('ALIGN',(0,1),(-2,-1),'LEFT'),
                                ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
-                               #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               #('LINEABOVE',(0,2),(-1,-2),0.25,colors.lightgrey),
                                ('LINEABOVE',(0,2),(-1,-2),0.25,colors.lightgrey),
                                ('INNERGRID', (0,0), (-1,1), 0.25, colors.black),
                                ('INNERGRID', (0,-2), (-1,-1), 0.25, colors.black),
@@ -239,7 +237,7 @@ class GeradorCertificado:
                                ('RIGHTPADDING',(0,0),(-1,-1),0),
                                ('BOTTOMPADDING',(0,0),(-1,-1),0),
                                ('TOPPADDING',(0,0),(-1,-1),0),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar caixa
                                ]))
 
         # Obtém a altura e largura da tabela
@@ -275,7 +273,7 @@ class GeradorCertificado:
                                ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
                                ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar caixa
                                ]))
 
         # Obtém a altura e largura da tabela
@@ -307,8 +305,7 @@ class GeradorCertificado:
                                ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
                                ('TOPPADDING',(0,0),(-1,-1),-6),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
-                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar caixa
                                ]))
 
         # Obtém a altura e largura da tabela
@@ -375,8 +372,8 @@ class GeradorCertificado:
                                ('VALIGN',(1,0),(-1,-1),'MIDDLE'),
                                ('BOTTOMPADDING',(0,0),(-1,0),-2),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
-                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar grade
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black),       #
                                ]))
 
         # Obtém a altura e largura da tabela
@@ -432,8 +429,8 @@ class GeradorCertificado:
                                ('VALIGN',(1,0),(-1,-1),'MIDDLE'),
                                ('TOPPADDING',(0,0),(0,-1),10),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
-                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('INNERGRID', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar grade
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black),
                                ]))
 
         # Obtém a altura e largura da tabela
@@ -463,8 +460,7 @@ class GeradorCertificado:
                                ('BOTTOMPADDING',(0,0),(-1,-1),-6),
                                ('TOPPADDING',(0,0),(-1,-1),-6),
                                ('TEXTCOLOR',(0,0),(-1,-1),colors.black),
-                               ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-                               ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                               #('BOX', (0,0), (-1,-1), 0.25, colors.black), #Descomentar para visualizar caixa
                                ]))
 
         # Obtém a altura e largura da tabela
