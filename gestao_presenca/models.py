@@ -32,7 +32,7 @@ class Inscricao(models.Model):
 	data = models.DateField(auto_now_add = True)
 	participou = models.BooleanField(default = False)
 	cronograma = models.ForeignKey(Cronograma,on_delete=models.CASCADE)
-	categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
+	categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE, default = 1)
 	usuario = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 	def get_absolute_url(self):
 		#return '/{self.id}/'
