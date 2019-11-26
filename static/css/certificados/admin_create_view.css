@@ -66,6 +66,7 @@ header {
 	margin: 5px 0 5px 5px;
 }
 
+.box-view #id_feira,
 .box-view #id_categoria {
 	font-size: 100%;
 	font: inherit;

@@ -54,6 +54,7 @@ header {
 	margin: 0 0 0 2.5%;
 }
 
+.box-view .box-data #feira,
 .box-view .box-data #categoria {
 	padding: 5px;
 }
