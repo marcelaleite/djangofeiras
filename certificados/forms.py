@@ -1,6 +1,6 @@
 from django import forms
 
-from gestao_feira.models import Categoria
+from gestao_feira.models import Feira, Categoria
 
 from .models import Certificado
 
@@ -29,6 +29,10 @@ class CertificadoForm(forms.ModelForm):
     imagem_evento = forms.ImageField(label='Imagem do Evento',
                                      required=False)
 
+    feira = forms.ModelChoiceField(queryset=Feira.objects.all(),
+                                   label='Feira Aplicável ao Certificado',
+                                   required=True)
+
     categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(),
                                        label='Categoria Aplicável de Certificação',
                                        required=True)
@@ -37,6 +41,7 @@ class CertificadoForm(forms.ModelForm):
         model = Certificado
         fields = [
             'nome_modelo',
+            'feira',
             'categoria',
             'ptext',
             'imagem_fundo',
