@@ -99,23 +99,44 @@ def inscricao_delete_view(request,pid):
 	return render(request,'inscricao/delete_view.html',contexto)
 
 @login_required
-def confirmacao_presenca(request, id, hash):
+def confirmacao_presenca(request, id_atividades, hash):
+
+	obj = get_object_or_404(Inscricao,cronograma=id_atividades, usuario = request.user)
+	cron =  get_object_or_404(Cronograma, id=obj.cronograma_id)
+	mensagem = 'Você não está confirmado!'
+
+	if cron.hash == hash:
+		mensagem = 'Você está confirmado!'
+
+	Inscricao.objects.filter(pk=obj.pk).update(participou = True, cronograma = id_atividades)
+	obj.refresh_from_db()
+
+	contexto = {
+		'mensagem':mensagem,
+	}
 	#template_name = 'gestao_presenca/QRcode.html'
 	#confirmacao_presenca = Inscricao.objects.get(pk=id)
-	return render(request,'atividade/QRcode.html',contexto)
+	return render(request,'inscricao/confirmacao.html',contexto)
 
 @login_required
 def gerarQRCODE(request, id_atividades):
-	obj = get_object_or_404(Atividade,id=id_atividades)
-	s = obj.titulo+datetime.now().strftime('%d/%m/%y %H:%M:%S')
+	obj = get_object_or_404(Cronograma,id=id_atividades)
+	s = obj.data.strftime('%d/%m/%y %H:%M:%S')+datetime.now().strftime('%d/%m/%y %H:%M:%S')
 	hash = sha1(s.encode('utf-8')).hexdigest()
-	link = request.build_absolute_uri(reverse('gestao_presenca:confirmacao',kwargs={'id_atividades':id_atividades})+'/'+hash)
+	save_hash(hash, id_atividades)
+	link = request.build_absolute_uri(reverse('gestao_presenca:confirmacao',kwargs={'id_atividades':id_atividades, 'hash':hash}))
 	contexto = {
 	'hash':hash,
 	'link':link
 	}
-	return render(request,'atividade/QRcode.html',contexto)
+	return render(request,'cronograma/QRcode.html',contexto)
 	#return HttpResponse(request, 'confirmacao_presenca/QRcode.html',contexto)
+
+def erro404(request, mensagem):
+	contexto = {}
+	contexto = {"project_name":settings.PROJECT_NAME}
+	confirmacao_presenca(request, id_atividades, hash)
+	return render(request,'gestao_presenca/erro404.html',contexto)
 
 #	CRONOGRAMA	#
 def cronograma_list_view(request):
@@ -154,7 +175,7 @@ def cronograma_update_view(request, pid):
     contexto = {
         'form' : form
     }
-    return render(request, 'cronograma/create_view.html', contexto)
+    return render(request, 'cronograma/update_view.html', contexto)
 
 def cronograma_delete_view(request, pid):
     obj = get_object_or_404(Cronograma, id=pid)
@@ -167,3 +188,10 @@ def cronograma_delete_view(request, pid):
         'object' : obj
     }
     return render(request, 'cronograma/delete_view.html', contexto)
+
+def save_hash(phash, id):
+	obj = get_object_or_404(Cronograma, id=id)
+	Cronograma.objects.filter(pk=obj.pk).update(hash = phash)
+	#obj.update(hash = phash)
+	obj.refresh_from_db()
+	#self.assertEqual(obj.id)
