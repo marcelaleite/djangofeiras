@@ -135,7 +135,6 @@ def gerarQRCODE(request, id_atividades):
 def erro404(request, mensagem):
 	contexto = {}
 	contexto = {"project_name":settings.PROJECT_NAME}
-	confirmacao_presenca(request, id_atividades, hash)
 	return render(request,'gestao_presenca/erro404.html',contexto)
 
 #	CRONOGRAMA	#
