@@ -12,10 +12,9 @@ from .gerador.geradorCertificado import GeradorCertificado
 from .gerador.certificadoHelpers import *
 
 from .models import Certificado
-from .forms import CertificadoForm, CertificadoFormManual
+from .forms import CertificadoForm
 
 from gestao_feira.models import Feira
-
 from gestao_presenca.models import Atividade, Cronograma, Inscricao, Pessoa
 
 # Create your views here.
@@ -25,23 +24,11 @@ from gestao_presenca.models import Atividade, Cronograma, Inscricao, Pessoa
 #
 @login_required
 def certificados_list_view(request):
-    #obj = Certificado.objects.all()
-    #obj = Inscricao.objects.all().filter(usuario__id=request.user.id, participou=True)
-    print(request.user)
-    print(request.user.id)
-    print(request.user.username)
-    print(request.user.is_authenticated)
-    print(request.user.is_staff)
-    print(request.user.is_superuser)
-    #print(Certificado.objects.all())
-    print(Inscricao.objects.all())
-    print(Atividade.objects.all())
-    print(Cronograma.objects.all())
-
     # Verifica se o usuário está logado corretamente, senão emite notificação de permição negada.
     if (not request.user.is_authenticated):
         raise PermissionDenied()
 
+    #Classe auxiliar para armazenar as informações de certificados disponíveis
     class CertificadoLista:
         def __init__(self, id, id_feira, nome_feira, id_categoria, nome_categoria):
             self.id = id
@@ -54,56 +41,44 @@ def certificados_list_view(request):
     feiras_id = []     # Lista das feiras com participação (para evitar duplicação de certificados)
 
     print()
-    print('--> Teste busca simples')
+    #Busca todas as inscrições em que o usuário teve participação
     inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True)
     print(inscricoes)
-    if (inscricoes != None and len(inscricoes) > 0):
-        #ativ = Atividade.objects.filter(id=inscricoes[0].atividades.id)
-        #print(ativ)
-        #if (ativ != None and len(ativ) > 0):
-        #    feira = Feira.objects.filter(id=ativ[0].feira.id)
-        #    print(feira)
-        crono = Cronograma.objects.filter(atividade=inscricoes[0].atividades.id)
-        print(crono)
-
-    #for value in inscricoes:
-    #    certificados.append(CertificadoLista(value.id, '???'))
-
-    print()
     print('--> for inscricao in inscricoes:')
     i = 1
     for inscricao in inscricoes:
-        atividade = Atividade.objects.filter(id=inscricao.atividades.id)
-        #cronograma = Cronograma.objects.filter(id=inscricoes[0].atividades.id)
-        cronograma = Cronograma.objects.filter(id=inscricao.atividades.id)
         print(inscricao)
-        print(atividade)
-        print(cronograma)
-        if (cronograma != None and len(cronograma) > 0):
-            print(cronograma[0])
-            feira = Feira.objects.filter(id=cronograma[0].feira.id)
+        try:
+            #Busca o cronograma associado a inscrição atual
+            cronograma = Cronograma.objects.get(id=inscricao.cronograma.id)
+            print(cronograma)
+
+            #Busca a feira associada ao cronograma atual
+            feira = Feira.objects.get(id=cronograma.feira.id)
             print(feira)
-            if (feira != None and len(feira) > 0):
-                print(feira[0].nome_feira)
-                #if (not atividade[0].feira.id in feiras_id):
-                if (not feira[0].id in feiras_id):
-                    #certificados.append(CertificadoLista(i, atividade[0].feira.id, feira[0].nome_feira))
-                    #certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, 1, 'Ouvinte'))
-                    certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
-                    feiras_id.append(cronograma[0].feira.id)
+
+            #Verifica se a 'id' da feira atual não está na lista de feiras participadas:
+            if (not feira.id in feiras_id):
+                certificados.append(CertificadoLista(i, feira.id, feira.nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
+                feiras_id.append(feira.id)
+                i = i + 1
+                print('=> Certificado adicionado!!!A')
+            else: #Senão, a 'id' da feira atual já está na lista de feiras participadas:
+                add = True
+                #Percorre a lista de feiras participadas, testando se existe um certificado para a mesma feira e categoria registrados:
+                for certificado in certificados:
+                    if (certificado.id_feira == feira.id):
+                        if (certificado.id_categoria == inscricao.categoria.id):
+                            add = False
+                #Se não foi encontrado uma ocorrência de feira e categoria na lista de feiras participadas:
+                if (add == True):
+                    #Adiciona o certificado a lista de certificados disponíveis
+                    certificados.append(CertificadoLista(i, feira.id, feira.nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
                     i = i + 1
-                    print('=> Certificado adicionado!!!')
-                else:
-                    add = True
-                    for certificado in certificados:
-                        if (certificado.id_feira == feira[0].id):
-                            if (certificado.id_categoria == inscricao.categoria.id):
-                                add = False
-                    if (add == True):
-                        #certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, 1, 'Ouvinte'))
-                        certificados.append(CertificadoLista(i, feira[0].id, feira[0].nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
-                        i = i + 1
-                        print('=> Certificado adicionado!!!')
+                    print('=> Certificado adicionado!!!B')
+        except Exception as e:
+            print(e)
+            pass
 
     print()
     print('--> ')
@@ -115,7 +90,6 @@ def certificados_list_view(request):
     print()
 
     contexto = {
-        #'object':obj
         'object':certificados
     }
 
@@ -130,9 +104,9 @@ def certificados_detail_view(request, pid, cid):
     if (not request.user.is_authenticated):
         raise PermissionDenied()
 
-    #obj = get_object_or_404(Certificado, id = pid)
+    #Busca a feira, o modelo de certificado e as inscrições com participação, conforme a id de feira e id de cetegorias recebidas
     feira = get_object_or_404(Feira, id = pid)
-    certificado = get_object_or_404(Certificado, categoria=cid)
+    certificado = get_object_or_404(Certificado, feira=pid, categoria=cid)
     inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True, categoria=cid)
     print(feira)
     print(certificado)
@@ -150,21 +124,20 @@ def certificados_detail_view(request, pid, cid):
     print()
     print('--> for inscricao in inscricoes:')
     for inscricao in inscricoes:
-        #atividade = Atividade.objects.filter(id=inscricao.atividades.id, feira=pid)
-        #print(atividade)
-        #if (atividade != None and len(atividade) > 0):
-        #    print(atividade[0])
-        #    atividades.append(atividade[0])
-        #    print('=> Atividade adicionada!!!')
-        cronograma = Cronograma.objects.filter(atividade=inscricao.atividades.id, feira=pid)
-        print(cronograma)
-        atividade = Atividade.objects.filter(id=inscricao.atividades.id)
-        print(atividade)
-        if (cronograma != None and len(cronograma) > 0 and atividade != None and len(atividade) > 0):
-            print(cronograma[0])
-            print(atividade[0])
-            atividades.append(atividade[0])
+        try:
+            #Busca o cronograma associado a inscrição atual
+            cronograma = Cronograma.objects.get(id=inscricao.cronograma.id, feira=pid)
+            print(cronograma)
+
+            #Busca a atividade associada ao cronograma atual:
+            atividade = Atividade.objects.get(id=cronograma.atividade.id)
+            print(atividade)
+
+            atividades.append(atividade)
             print('=> Atividade adicionada!!!')
+        except Exception as e:
+            print(e)
+            pass
 
     print()
     patrocinadores = Patrocinadores.objects.filter(feira=pid)
@@ -172,11 +145,13 @@ def certificados_detail_view(request, pid, cid):
     print()
 
     pessoa = None
-    pes = Pessoa.objects.filter(usuario=request.user.id)
-    print(pes)
-    if (pes != None and len(pes) > 0):
-        pessoa = pes[0]
-        print(pessoa)
+    try:
+        pessoa = Pessoa.objects.get(usuario=request.user.id)
+    except Exception as e:
+        print(e)
+        pass
+
+    print(pessoa)
     print()
 
     # Geração do certificado com os dados carregados
@@ -261,7 +236,6 @@ def certificados_admin_detail_view(request, pid):
         contexto = {
             'object':obj
         }
-
         return render(request, 'admin_detail_view.html', contexto)
 
     # Geração do modelo de certificado para visualização

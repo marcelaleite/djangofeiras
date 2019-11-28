@@ -7,10 +7,7 @@ from .dadosCertificadoAssinatura import DadosCertificadoAssinatura
 from .geradorCertificado import GeradorCertificado
 
 from certificados.models import Certificado
-from certificados.forms import CertificadoForm, CertificadoFormManual
-
 from gestao_feira.models import Feira, Patrocinadores
-
 from gestao_presenca.models import Atividade, Inscricao, Pessoa
 
 # Lista dos meses em extenso
