@@ -2,7 +2,7 @@
 <html lang="pt" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>{{ titulo }}</title>
+		<title>{% block title %}{{ titulo }}{% endblock %}</title>
 		{% block css %}
 		{% endblock css %}
 	</head>
