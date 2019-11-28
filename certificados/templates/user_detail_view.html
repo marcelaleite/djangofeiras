@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block conteudo %}
+{% block css %}
 <link rel="stylesheet" href="{% static '/css/certificados/user_detail_view.css' %}">
+{% endblock css %}
+
+{% block conteudo %}
 <section class="box-view">
 	<h1>{{ 'Certificado Inexistente'|upper }}</h1>
 	<p>Desculpe, mas não existe registro de sua participação no evento: <b>{{ nome_evento }}</b>.</p>

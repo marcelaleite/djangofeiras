@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block conteudo %}
+{% block css %}
 <link rel="stylesheet" href="{% static '/css/certificados/user_list_view.css' %}">
+{% endblock css %}
+
+{% block conteudo %}
 <section class="box-view">
 	<h1>{{ 'Certificados Disponíveis'|upper }}</h1>
 	{% if object %}

@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block conteudo %}
+{% block css %}
 <link rel="stylesheet" href="{% static '/css/certificados/admin_delete_view.css' %}">
+{% endblock css %}
+
+{% block conteudo %}
 <section class="box-view">
 	<h1>{{ 'Excluir Certificado'|upper }}</h1>
 	<h2>{{ object.nome_modelo }}</h2>
