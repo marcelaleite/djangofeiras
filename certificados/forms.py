@@ -47,13 +47,3 @@ class CertificadoForm(forms.ModelForm):
             'imagem_fundo',
             'imagem_evento'
         ]
-
-class CertificadoFormManual(forms.Form):
-    nome = forms.CharField(max_length='120')
-    sobrenome = forms.CharField(max_length='120')
-
-    def clean_nome(self, *args, **kwargs):
-        nome = self.cleaned_data.get('nome')
-        if not 'de' in nome:
-            raise forms.ValidationError('Nome não compativel com o padrão')
-        return nome
