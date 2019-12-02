@@ -143,14 +143,45 @@ def certificados_download_view(request, pid, cid):
     if (not request.user.is_authenticated):
         raise PermissionDenied()
 
-    obj = get_object_or_404(Certificado, id = pid)
+    #Busca a feira, o modelo de certificado e as inscrições com participação, conforme a id de feira e id de cetegorias recebidas
+    feira = get_object_or_404(Feira, id = pid)
+    certificado = get_object_or_404(Certificado, feira=pid, categoria=cid)
+    inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True, categoria=cid)
 
-    # Dados do certificado
-    dadosCert = DadosCertificado(ptext=obj.ptext, imagem_fundo=obj.imagem_fundo.path, imagem_evento=obj.imagem_evento.path)
+    # Se usuário não possuir inscrição na feira em questão, mostra uma mensagem informando:
+    if (inscricoes == None or len(inscricoes) == 0):
+        contexto = {
+            'nome_evento':feira.nome_feira
+        }
+        return render(request, 'user_detail_view.html', contexto)
 
-    # Geração do certificado
-    certificado = GeradorCertificado(dadosCert)
-    buffer = certificado.getCertificado()
+    atividades = []  # Lista das atividades com participação encontradas para a feira
+
+    #Percorre as inscrições encontradas, para criar a lista de atividades do evento participado
+    for inscricao in inscricoes:
+        try:
+            #Busca o cronograma associado a inscrição atual
+            cronograma = Cronograma.objects.get(id=inscricao.cronograma.id, feira=pid)
+
+            #Busca a atividade associada ao cronograma atual:
+            atividade = Atividade.objects.get(id=cronograma.atividade.id)
+
+            atividades.append(atividade)
+        except Exception as e:
+            print(e)
+            pass
+
+    patrocinadores = Patrocinadores.objects.filter(feira=pid)
+
+    pessoa = None
+    try:
+        pessoa = Pessoa.objects.get(usuario=request.user.id)
+    except Exception as e:
+        print(e)
+        pass
+
+    # Geração do certificado com os dados carregados
+    buffer = makeCertificadoBytesIO(request.user, pessoa, certificado, feira, atividades, list(patrocinadores))
 
     # FileResponse sets the Content-Disposition header so that browsers
     # present the option to save the file.
