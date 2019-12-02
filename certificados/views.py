@@ -40,29 +40,24 @@ def certificados_list_view(request):
     certificados = []  # Lista dos certificados encontrados
     feiras_id = []     # Lista das feiras com participação (para evitar duplicação de certificados)
 
-    print()
     #Busca todas as inscrições em que o usuário teve participação
     inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True)
-    print(inscricoes)
-    print('--> for inscricao in inscricoes:')
+
+    #Percorre as inscrições encontradas (se existirem), para criar a lista de certificados disponíveis para o usuário
     i = 1
     for inscricao in inscricoes:
-        print(inscricao)
         try:
             #Busca o cronograma associado a inscrição atual
             cronograma = Cronograma.objects.get(id=inscricao.cronograma.id)
-            print(cronograma)
 
             #Busca a feira associada ao cronograma atual
             feira = Feira.objects.get(id=cronograma.feira.id)
-            print(feira)
 
             #Verifica se a 'id' da feira atual não está na lista de feiras participadas:
             if (not feira.id in feiras_id):
                 certificados.append(CertificadoLista(i, feira.id, feira.nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
                 feiras_id.append(feira.id)
                 i = i + 1
-                print('=> Certificado adicionado!!!A')
             else: #Senão, a 'id' da feira atual já está na lista de feiras participadas:
                 add = True
                 #Percorre a lista de feiras participadas, testando se existe um certificado para a mesma feira e categoria registrados:
@@ -75,19 +70,9 @@ def certificados_list_view(request):
                     #Adiciona o certificado a lista de certificados disponíveis
                     certificados.append(CertificadoLista(i, feira.id, feira.nome_feira, inscricao.categoria.id, inscricao.categoria.nome))
                     i = i + 1
-                    print('=> Certificado adicionado!!!B')
         except Exception as e:
             print(e)
             pass
-
-    print()
-    print('--> ')
-    #print(certificados)
-    #print(certificados[0].id)
-    #print(certificados[0].nome_feira)
-    print(feiras_id)
-    #print('id' in feiras_id)
-    print()
 
     contexto = {
         'object':certificados
@@ -108,9 +93,6 @@ def certificados_detail_view(request, pid, cid):
     feira = get_object_or_404(Feira, id = pid)
     certificado = get_object_or_404(Certificado, feira=pid, categoria=cid)
     inscricoes = Inscricao.objects.filter(usuario__id=request.user.id, participou=True, categoria=cid)
-    print(feira)
-    print(certificado)
-    print(inscricoes)
 
     # Se usuário não possuir inscrição na feira em questão, mostra uma mensagem informando:
     if (inscricoes == None or len(inscricoes) == 0):
@@ -121,28 +103,21 @@ def certificados_detail_view(request, pid, cid):
 
     atividades = []  # Lista das atividades com participação encontradas para a feira
 
-    print()
-    print('--> for inscricao in inscricoes:')
+    #Percorre as inscrições encontradas, para criar a lista de atividades do evento participado
     for inscricao in inscricoes:
         try:
             #Busca o cronograma associado a inscrição atual
             cronograma = Cronograma.objects.get(id=inscricao.cronograma.id, feira=pid)
-            print(cronograma)
 
             #Busca a atividade associada ao cronograma atual:
             atividade = Atividade.objects.get(id=cronograma.atividade.id)
-            print(atividade)
 
             atividades.append(atividade)
-            print('=> Atividade adicionada!!!')
         except Exception as e:
             print(e)
             pass
 
-    print()
     patrocinadores = Patrocinadores.objects.filter(feira=pid)
-    print(patrocinadores)
-    print()
 
     pessoa = None
     try:
@@ -150,9 +125,6 @@ def certificados_detail_view(request, pid, cid):
     except Exception as e:
         print(e)
         pass
-
-    print(pessoa)
-    print()
 
     # Geração do certificado com os dados carregados
     buffer = makeCertificadoBytesIO(request.user, pessoa, certificado, feira, atividades, list(patrocinadores))
