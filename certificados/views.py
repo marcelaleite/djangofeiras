@@ -193,7 +193,7 @@ def certificados_download_view(request, pid, cid):
 def certificados_admin_list_view(request):
     # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
     # senão emite notificação de permição negada:
-    if (not request.user.is_authenticated or not request.user.is_staff):
+    if (not request.user.is_staff):
         raise PermissionDenied()
 
     obj = Certificado.objects.all()
@@ -209,6 +209,11 @@ def certificados_admin_list_view(request):
 #
 @login_required
 def certificados_admin_create_view(request):
+    # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
+    # senão emite notificação de permição negada:
+    if (not request.user.is_staff):
+        raise PermissionDenied()
+
     form = CertificadoForm(request.POST, request.FILES or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -230,6 +235,11 @@ def certificados_admin_create_view(request):
 #
 @login_required
 def certificados_admin_detail_view(request, pid):
+    # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
+    # senão emite notificação de permição negada:
+    if (not request.user.is_staff):
+        raise PermissionDenied()
+
     obj = get_object_or_404(Certificado, id = pid)
 
     if (type(obj) is not Certificado):
@@ -252,6 +262,11 @@ def certificados_admin_detail_view(request, pid):
 #
 @login_required
 def certificados_admin_update_view(request, pid):
+    # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
+    # senão emite notificação de permição negada:
+    if (not request.user.is_staff):
+        raise PermissionDenied()
+
     obj = get_object_or_404(Certificado, id = pid)
     form = CertificadoForm(request.POST or None, instance = obj)
 
@@ -270,6 +285,11 @@ def certificados_admin_update_view(request, pid):
 #
 @login_required
 def certificados_admin_delete_view(request, pid):
+    # Verifica se o usuário está logado corretamente e possui nível de privilégio correto,
+    # senão emite notificação de permição negada:
+    if (not request.user.is_staff):
+        raise PermissionDenied()
+
     obj = get_object_or_404(Certificado, id = pid)
 
     if request.method == 'POST':
