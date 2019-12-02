@@ -23,11 +23,19 @@
 	</div>
 	<div class="box-data">
 		<h3>Imagem de Fundo do Certificado</h3>
+		{% if object.imagem_fundo %}
 		<img src="{{ object.imagem_fundo.url }}" class="img-responsive" alt="{{ object.imagem_fundo.url }}">
+		{% else %}
+		<p class="no-image">Sem imagem.</p>
+		{% endif %}
 	</div>
 	<div class="box-data">
 		<h3>Imagem de Fundo do Evento</h3>
+		{% if object.imagem_evento %}
 		<img src="{{ object.imagem_evento.url }}" id="img-evento" class="img-responsive" alt="{{ object.imagem_evento.url }}">
+		{% else %}
+		<p class="no-image">Sem imagem.</p>
+		{% endif %}
 	</div>
 	<form method="POST">{% csrf_token %}
 		<input type="submit" name="delete" value="Excluir">

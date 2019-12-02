@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from django.utils.functional import SimpleLazyObject
 from django.contrib.auth.models import User
+import os.path
 
 from .dadosCertificado import DadosCertificado
 from .dadosCertificadoAssinatura import DadosCertificadoAssinatura
@@ -64,8 +65,18 @@ def makeDadosCertificado(objModelUser=None,
             raise TypeError("O parâmetro 'objModelCertificado' deve obrigatóriamente ser um objeto do tipo modelo de 'Certificado'!")
         else:
             dadosCert.ptext = objModelCertificado.ptext
-            dadosCert.imagem_fundo = objModelCertificado.imagem_fundo.path
-            dadosCert.imagem_evento = objModelCertificado.imagem_evento.path
+
+            try:
+                dadosCert.imagem_fundo = objModelCertificado.imagem_fundo.path
+            except:
+                dadosCert.imagem_fundo = None
+                pass
+
+            try:
+                dadosCert.imagem_evento = objModelCertificado.imagem_evento.path
+            except:
+                dadosCert.imagem_evento = None
+                pass
 
     if (objModelFeira is not None):
         if (type(objModelFeira) is not Feira):

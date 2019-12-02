@@ -64,6 +64,11 @@ header {
 	padding: 5px;
 }
 
+.box-view .box-data .no-image {
+	text-align: center;
+	padding: 5px;
+}
+
 .box-view .box-data h3 {
 	text-align: center;
 }
