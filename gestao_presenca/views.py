@@ -6,6 +6,7 @@ from .models import Atividade,Inscricao,Cronograma
 from django.contrib.auth import authenticate, login
 from hashlib import sha1
 from datetime import datetime
+from .forms import CronogramaForm, AtividadeForm, InscricaoForm
 
 def atividade_list_view(request):
 	obj = Atividade.objects.all()

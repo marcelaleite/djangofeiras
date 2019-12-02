@@ -1,5 +1,5 @@
 from django import forms
-from .models import Atividade,Inscricao
+from .models import Atividade,Inscricao,Cronograma, Pessoa
 
 class AtividadeForm(forms.ModelForm):
 		model = Atividade
@@ -10,10 +10,10 @@ class AtividadeForm(forms.ModelForm):
 		'palestrante'
 		]
 
-class AtividadeFormManual(forms.Form):
-	titulo = models.CharField(max_length = 200)
-	descricao = models.TextField()
-	palestrante = models.ForeignKey(auth.models.User,on_delete=models.CASCADE)
+#class AtividadeFormManual(forms.Form):
+	#titulo = forms.CharField(max_length = '200')
+	#descricao = forms.TextField()
+	#palestrante = forms.ForeignKey(auth.models.User,on_delete=models.CASCADE)
 
 class CronogramaForm(forms.ModelForm):
 	class Meta:
@@ -32,7 +32,8 @@ class InscricaoForm(forms.ModelForm):
 		model = Inscricao
 		fields = [
 		'participou',
-		'atividades',
+		'cronograma',
+		'categoria',
 		'usuario'
 		]
 
@@ -40,8 +41,6 @@ class PessoaForm(forms.ModelForm):
     class Meta:
         model = Pessoa
         fields = [
-        'nome',
-        'sobrenome',
         'data_nascimento',
         'nacionalidade',
         'cpf',
@@ -49,8 +48,5 @@ class PessoaForm(forms.ModelForm):
         'telefone',
         'email',
         'instituicao',
-        'formacao',
-        'tipo',
-        'cargo',
-        'assinatura'
-        ]
+        'formacao'
+		]
