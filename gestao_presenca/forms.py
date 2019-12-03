@@ -32,7 +32,7 @@ class InscricaoForm(forms.ModelForm):
 		model = Inscricao
 		fields = [
 		'participou',
-		'atividades',
+		'cronograma',
 		'usuario'
 		]
 

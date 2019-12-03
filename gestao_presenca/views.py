@@ -132,10 +132,8 @@ def gerarQRCODE(request, id_atividades):
 	return render(request,'cronograma/QRcode.html',contexto)
 	#return HttpResponse(request, 'confirmacao_presenca/QRcode.html',contexto)
 
-def erro404(request, mensagem):
-	contexto = {}
-	contexto = {"project_name":settings.PROJECT_NAME}
-	return render(request,'gestao_presenca/erro404.html',contexto)
+def erro404(request, exception):
+	return render('inscricao/erro404.html',contexto)
 
 #	CRONOGRAMA	#
 def cronograma_list_view(request):
