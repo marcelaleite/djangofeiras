@@ -4,6 +4,7 @@ from django.http import HttpResponse, FileResponse, HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
 
 import io
+from datetime import date
 from reportlab.pdfgen import canvas
 
 from .gerador.dadosCertificado import DadosCertificado
@@ -52,6 +53,10 @@ def certificados_list_view(request):
 
             #Busca a feira associada ao cronograma atual
             feira = Feira.objects.get(id=cronograma.feira.id)
+
+            #Se o evento não finalizou, não gera certificado
+            if (feira.data_fim >= date.today()):
+                raise Exception('--> Evento não finalizado!')
 
             #Verifica se a 'id' da feira atual não está na lista de feiras participadas:
             if (not feira.id in feiras_id):
