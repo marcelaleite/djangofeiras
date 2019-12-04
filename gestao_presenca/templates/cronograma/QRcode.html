@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+{% block title %}
+<title><h2>{{atividade}}</h2></title>
+{% endblock title %}
+
+<div><a href="{{link}}">link</a></div>
+{% load qr_code %}
+<div>
+{% qr_from_text link size="M" %}
+</div>
+
+<li>{{ data }} - {{ hora_inicio }} - {{ hora_fim }} - {{ local }}<li>
+{% endblock conteudo %}
