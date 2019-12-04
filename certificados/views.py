@@ -228,6 +228,7 @@ def certificados_admin_create_view(request):
             fn = form.save(commit = False)
             #fn.submetido_por = request.user
             fn.save()
+            return redirect('../')
 
         form = CertificadoForm()
 
