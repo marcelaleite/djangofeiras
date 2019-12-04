@@ -25,7 +25,7 @@ urlpatterns = [
     path('<int:pid>/<int:cid>/download/', certificados_download_view, name='certificados-download'),
 
     # Nível administrador (Modelos)
-    path('modelos/', certificados_admin_list_view, name='certificados-model-list'),
+    path('modelo/', certificados_admin_list_view, name='certificados-model-list'),
     path('modelo/new/', certificados_admin_create_view, name='certificados-model-create'),
     path('modelo/<int:pid>/', certificados_admin_detail_view, name='certificados-model-detail'),
     path('modelo/<int:pid>/update/', certificados_admin_update_view, name='certificados-model-update'),
