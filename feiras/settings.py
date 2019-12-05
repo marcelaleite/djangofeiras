@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gestao_feira',
     'certificados',
     'gestao_presenca',
     'accounts',
-    'gestao_feira',
     'qr_code'
 ]
 

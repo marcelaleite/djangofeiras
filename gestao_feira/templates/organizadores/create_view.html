@@ -1,8 +1,59 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="save" value="Salvar">
+  <h4>Cadastro de Organizadores</h4>
+  <form action="#">
+    <div class="input-field">
+      {{ form.funcao }}
+      <label for="input_text">Função</label>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="fa fa-facebook-official prefix" style="font-size:24px"></i>
+        {{ form.facebook }}
+        <label for="icon_prefix">Facebook</label>
+      </div>
+      <div class="input-field col s6">
+        <i class="fa fa-instagram prefix" style="font-size:24px"></i>
+        {{ form.instagram }}
+        <label for="icon_prefix">Instagram</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">phone</i>
+        {{ form.telefone }}
+        <label for="icon_telephone">Telefone</label>
+      </div>
+      <div class="input-field col s6">
+        <i class="fa fa-whatsapp prefix"></i>
+        {{ form.whatsapp }}
+        <label for="icon_prefix">WhatsApp</label>
+      </div>
+    </div>
+    <div class="input-field col s12">
+      {{ form.email }}
+      <label for="email">Email</label>
+    </div>
+    <div class="input-field col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          {{ form.usuario }}
+          <label>Usuario</label>
+        </div>
+      </div>
+    </div>
+    <div class="input-field col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          {{ form.feira }}
+          <label>Usuario</label>
+        </div>
+      </div>
+    </div>
+    <input type="submit" name="save" value="Salvar">
+  </form>
 </form>
 {% endblock conteudo %}

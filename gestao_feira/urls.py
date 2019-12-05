@@ -8,10 +8,12 @@ patrocinadores_list_view, patrocinadores_detail_view, patrocinadores_create_view
 patrocinadores_delete_view, observacoes_list_view, observacoes_detail_view, observacoes_create_view, observacoes_update_view,
 observacoes_delete_view, instituicao_list_view, instituicao_detail_view, instituicao_create_view, instituicao_update_view,
 instituicao_delete_view, categoria_list_view, categoria_detail_view, categoria_create_view, categoria_update_view,
-categoria_delete_view)
+categoria_delete_view, home_view, sobre_view)
 
 urlpatterns = [
-    #path('/', feira_list_view,name='feira-list'),
+    path('', home_view, name='home'),
+    path('sobre', sobre_view, name='sobre'),
+
     path('feira/', feira_list_view,name='feira-list'),
     path('feira/<int:pid>/', feira_detail_view,name='feira-detail'),
     path('feira/<int:pid>/update/', feira_update_view,name='feira-update'),

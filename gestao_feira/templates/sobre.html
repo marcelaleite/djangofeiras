@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+{% load static %}
+<body>
+  <div class="container">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <h1>{{ 'Projeto Feiras de Matematica'|upper }}</h1>
+    <p>Projeto desenvolvido na unidade curricular Tópicos Especiais em Informática ||| - Programação em Python</p>
+    <p>Professora: Marcela Leite</p>
+    <p>Alunos: Alexandre Bauer, Felipe Tenfen e Kael Lucas Pinheiro</p>
+    <p>Rio do Sul, 03 de Dezembro de 2019</p>
+  </div>
+</body>
+{% endblock conteudo %}

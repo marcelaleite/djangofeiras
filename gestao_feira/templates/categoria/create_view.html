@@ -2,7 +2,19 @@
 
 {% block conteudo %}
 <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="save" value="Salvar">
+  <h4>Cadastro de Categoria</h4>
+  <form action="#">
+    <div class="row">
+      <div class="input-field">
+        {{ form.nome }}
+        <label for="input_text">Nome Categoria</label>
+      </div>
+      <label>
+        {{ form.privilegio }}
+        <span>Privilégio</span>
+      </label>
+    </div>
+    <input class="waves-effect waves-light btn" type="submit" name="save" value="Salvar">
+  </form>
 </form>
 {% endblock conteudo %}

@@ -7,6 +7,14 @@ from django.contrib.auth import authenticate, login
 from .forms import FeiraForm, OrganizadoresForm, PatrocinadoresForm, ObservacoesForm, InstituicaoForm, CategoriaForm
 
 #	FEIRA	#
+def home_view(request):
+    contexto = {}
+    return render(request, 'home.html', contexto)
+
+def sobre_view(request):
+    contexto = {}
+    return render(request, 'sobre.html', contexto)
+
 def feira_list_view(request):
 	obj = Feira.objects.all()
 	contexto = {

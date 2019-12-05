@@ -2,7 +2,32 @@
 
 {% block conteudo %}
 <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="save" value="Salvar">
+  <h4>Cadastro de Patrocinadores</h4>
+  <div class="input-field">
+    {{ form.nome }}
+    <label for="input_text">Nome</label>
+  </div>
+  <div class="input-field">
+    {{ form.link }}
+    <label for="input_text">Link</label>
+  </div>
+  <div class="input-field col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        {{ form.feira }}
+        <label>Feira</label>
+      </div>
+    </div>
+  </div>
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+        {{ form.imagem_fundo }}
+      </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text">
+    </div>
+  </div>
+  <input class="waves-effect waves-light btn" type="submit" name="save" value="Salvar">
 </form>
 {% endblock conteudo %}
