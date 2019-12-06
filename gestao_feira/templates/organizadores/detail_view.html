@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1>{{ 'Organizadores'|upper}}</h1>
+<h3>Organizador</h3>
 <p><b>Função:</b> {{ object.funcao }}</p>
 <p><b>Facebook: </b>{{ object.facebook }}</p>
 <p><b>Instagram: </b>{{ object.instagram }}</p>
@@ -8,5 +8,6 @@
 <p><b>Telefone: </b>{{ object.telefone }}</p>
 <p><b>Whatsapp: </b>{{ object.whatsapp }}</p>
 <p><b>Feira: </b>{{ object.feira }}</p>
+<a href='../' class="waves-effect waves-light btn">Voltar</a>
 <ul>
 {% endblock conteudo %}

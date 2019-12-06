@@ -1,8 +1,101 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="save" value="Salvar">
+  <h4>Cadastro de Feira</h4>
+  <div class="row">
+    <div class="input-field col s6">
+      {{ form.nome_feira }}
+      <label>Nome</label>
+    </div>
+    <div class="input-field col s6">
+      {{ form.area }}
+      <label>Área</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s3">
+      {{ form.data_inicio }}
+      <label>Data Início</label>
+    </div>
+    <div class="input-field col s3">
+      {{ form.hora_inicio }}
+      <label>Hora Início</label>
+    </div>
+    <div class="input-field col s3">
+      {{ form.data_fim }}
+      <label>Data Fim</label>
+    </div>
+    <div class="input-field col s3">
+      {{ form.hora_fim }}
+      <label>Hora Fim</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s5">
+      {{ form.cep }}
+      <label>CEP</label>
+    </div>
+    <div class="input-field col s5">
+      {{ form.cidade }}
+      <label>Cidade</label>
+    </div>
+    <div class="input-field col s2">
+      {{ form.uf }}
+      <label>UF</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      {{ form.bairro }}
+      <label>Bairro</label>
+    </div>
+    <div class="input-field col s6">
+      {{ form.endereco }}
+      <label>Endereço</label>
+    </div>
+  </div>
+  <div class="input-field">
+    {{ form.complemento }}
+    <label for="input_text">Complemento</label>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <i class="fa fa-facebook-official prefix" style="font-size:24px"></i>
+      {{ form.facebook }}
+      <label for="icon_prefix">Facebook</label>
+    </div>
+    <div class="input-field col s6">
+      <i class="fa fa-instagram prefix" style="font-size:24px"></i>
+      {{ form.instagram }}
+      <label for="icon_prefix">Instagram</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <i class="material-icons prefix">phone</i>
+      {{ form.telefone }}
+      <label for="icon_telephone">Telefone</label>
+    </div>
+    <div class="input-field col s6">
+      <i class="fa fa-whatsapp prefix"></i>
+      {{ form.whatsapp }}
+      <label for="icon_prefix">WhatsApp</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <i style="font-size:24px" class="fa prefix">&#xf0e0;</i>
+      {{ form.email }}
+      <label for="icon_prefix">Email</label>
+    </div>
+    <div class="input-field col s6">
+      <i class="fa fa-twitter-square prefix"></i>
+      {{ form.twitter }}
+      <label for="icon_prefix">Twitter</label>
+    </div>
+  </div>
+  <input class="waves-effect waves-light btn" type="submit" name="save" value="Salvar">
 </form>
 {% endblock conteudo %}

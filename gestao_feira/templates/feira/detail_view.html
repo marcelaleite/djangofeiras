@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1>{{ 'Feira - '|upper}}{{ object.nome_feira|upper }}</h1>
+<h3>Feira</h3>
+
+<p><b>Nome:</b> {{ object.nome_feira }}</p>
 <p><b>Área de atuação:</b> {{ object.area }}</p>
 <p><b>Data Inicio: </b>{{ object.data_inicio }} - <b>Data Fim: </b>{{ object.data_fim }}</p>
 <p><b>Horário Inicio: </b>{{ object.hora_inicio }} - <b>Horário Fim: </b>{{ object.hora_fim }}</p>
@@ -15,5 +17,7 @@
 <p><b>Email: </b>{{ object.email }}</p>
 <p><b>Telefone: </b>{{ object.telefone }}</p>
 <p><b>Whatsapp: </b>{{ object.whatsapp }}</p>
-<ul>
+
+<a href='../' class="waves-effect waves-light btn">Voltar</a>
+
 {% endblock conteudo %}

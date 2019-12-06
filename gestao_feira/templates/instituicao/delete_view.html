@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<h1>{{ 'Instituição'|upper }}</h1>
-<h2>{{ object.razao_social }}</h2>
-<p>{{ object.nome }}</p>
+<h3>Instituição</h3>
+
+<p><b>Nome:</b> {{ object.nome }}</p>
+<p><b>Razão Social:</b> {{ object.razao_social }}</p>
+
 <form method="post">{% csrf_token %}
-  <input type="submit" value="Excluir">
+    <input class="waves-effect waves-light btn" type="submit" value="Excluir">
 </form>
 {% endblock conteudo %}

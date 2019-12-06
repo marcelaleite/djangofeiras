@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1>{{ 'Patrocinadores'|upper}}</h1>
+<h3>Patrocinador</h3>
 <p><b>Nome:</b> {{ object.nome }}</p>
 <p><b>Link: </b>{{ object.link }}</p>
 <p><b>Feira: </b>{{ object.feira }}</p>
+<a href='../' class="waves-effect waves-light btn">Voltar</a>
 <ul>
 {% endblock conteudo %}

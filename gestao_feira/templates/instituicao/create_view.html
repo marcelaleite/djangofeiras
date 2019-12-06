@@ -2,7 +2,41 @@
 
 {% block conteudo %}
 <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="save" value="Salvar">
+  <h4>Cadastro de Instituição</h4>
+    <div class="row">
+      <div class="input-field col s6">
+        {{ form.nome }}
+        <label>Nome Instituição</label>
+      </div>
+      <div class="input-field col s6">
+        {{ form.razao_social }}
+        <label>Razão Social</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s5">
+        {{ form.cep }}
+        <label>CEP</label>
+      </div>
+      <div class="input-field col s5">
+        {{ form.cidade }}
+        <label>Cidade</label>
+      </div>
+      <div class="input-field col s2">
+        {{ form.uf }}
+        <label>UF</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        {{ form.bairro }}
+        <label>Bairro</label>
+      </div>
+      <div class="input-field col s6">
+        {{ form.endereco }}
+        <label>Endereço</label>
+      </div>
+    </div>
+    <input class="waves-effect waves-light btn" type="submit" name="save" value="Salvar">
 </form>
 {% endblock conteudo %}

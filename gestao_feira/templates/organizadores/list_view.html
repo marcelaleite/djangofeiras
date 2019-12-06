@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<h1>{{ 'Organizadores'|upper}}</h1>
+<h3>Organizador</h3>
 <ul>
   {% for item in object %}
     <li><b><a href='{{ item.get_absolute_url }}'>{{ item.funcao }}</a></b> - <a href='{{ item.id }}/update/'>Alterar</a> | <a href='{{ item.id }}/delete/'>Deletar</a> </li>

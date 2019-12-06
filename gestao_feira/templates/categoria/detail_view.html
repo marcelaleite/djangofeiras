@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1>{{ 'Categoria'|upper}}</h1>
+<h3>Categoria</h3>
+
 <p><b>Nome:</b> {{ object.nome }}</p>
 <p><b>Privilegio: </b>{{ object.privilegio }}</p>
-<ul>
-{% endblock conteudo %}
+
+<a href='../' class="waves-effect waves-light btn">Voltar</a>
+
+{% endblock conteudo %}s

@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-<h1>{{ 'Instituição'|upper}}</h1>
+<h3>Instituições</h3>
 <ul>
   {% for item in object %}
-    <li><b><a href='{{ item.get_absolute_url }}'>{{ item.nome }}</a></b> - <a href='{{ item.id }}/update/'>Alterar</a> | <a href='{{ item.id }}/delete/'>Deletar</a> </li>
+    <li>
+      <h5>
+        <b><a href='{{ item.get_absolute_url }}'>{{ item.nome }}</a></b>
+      </h5>
+
+      <a href='{{ item.id }}/update/' class="waves-effect waves-light btn">Alterar</a>
+      <a href='{{ item.id }}/delete/' class="waves-effect waves-light btn">Deletar</a>
+    </li>
   {% endfor %}
 </ul>
 {% endblock conteudo %}
